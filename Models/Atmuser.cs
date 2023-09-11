@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ATM_banking_system.Models;
 
@@ -7,12 +8,17 @@ public partial class Atmuser
 {
     public int UserId { get; set; }
 
+    [Required(ErrorMessage = "Name is a required parameter")]
     public string? UserName { get; set; }
 
+    [Required(ErrorMessage = "Address is a required parameter")]
     public string? UserAddress { get; set; }
 
+    [Required(ErrorMessage = "City is a required parameter")]
     public string? City { get; set; }
 
+    [EmailAddress(ErrorMessage = "Enter a valid Email Address")]
+    [Required(ErrorMessage = "Email is a required parameter")]
     public string? Email { get; set; }
 
     public string? Contact { get; set; }
