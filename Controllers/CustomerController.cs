@@ -5,54 +5,47 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ATM_banking_system.Data;
 using ATM_banking_system.Models;
+using ATM_banking_system.Services;
 
 namespace ATM_banking_system.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AtmUsersController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly AtmContext _context;
+        private readonly ATMContext _context;
+        private readonly CustomerService _customerService;
 
-        public AtmUsersController(AtmContext context)
+        public CustomerController(ATMContext context, CustomerService customerService)
         {
             _context = context;
+            _customerService = customerService;
         }
 
         // GET: api/AtmUsers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Atmuser>>> GetAtmusers()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetAtmusers()
         {
-          if (_context.Atmusers == null)
+          if (_context.Customers == null)
           {
               return NotFound();
           }
-            return await _context.Atmusers.ToListAsync();
+            return await _context.Customers.ToListAsync();
         }
 
         // GET: api/AtmUsers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Atmuser>> GetAtmuser(int id)
+        public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-          if (_context.Atmusers == null)
-          {
-              return NotFound();
-          }
-            var atmuser = await _context.Atmusers.FindAsync(id);
-
-            if (atmuser == null)
-            {
-                return NotFound();
-            }
-
-            return atmuser;
+            return Ok(_customerService.GetCustomer(id));
         }
 
         // PUT: api/AtmUsers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAtmuser(int id, Atmuser atmuser)
+        public async Task<IActionResult> PutAtmuser(int id, Customer atmuser)
         {
             if (id != atmuser.UserId)
             {
@@ -83,13 +76,13 @@ namespace ATM_banking_system.Controllers
         // POST: api/AtmUsers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Atmuser>> PostAtmuser(Atmuser atmuser)
+        public async Task<ActionResult<Customer>> PostAtmuser(Customer atmuser)
         {
-          if (_context.Atmusers == null)
+          if (_context.Customers == null)
           {
               return Problem("Entity set 'AtmContext.Atmusers'  is null.");
           }
-            _context.Atmusers.Add(atmuser);
+            _context.Customers.Add(atmuser);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAtmuser", new { id = atmuser.UserId }, atmuser);
@@ -99,17 +92,17 @@ namespace ATM_banking_system.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAtmuser(int id)
         {
-            if (_context.Atmusers == null)
+            if (_context.Customers == null)
             {
                 return NotFound();
             }
-            var atmuser = await _context.Atmusers.FindAsync(id);
+            var atmuser = await _context.Customers.FindAsync(id);
             if (atmuser == null)
             {
                 return NotFound();
             }
 
-            _context.Atmusers.Remove(atmuser);
+            _context.Customers.Remove(atmuser);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -117,7 +110,7 @@ namespace ATM_banking_system.Controllers
 
         private bool AtmuserExists(int id)
         {
-            return (_context.Atmusers?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Customers?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }

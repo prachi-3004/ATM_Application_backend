@@ -21,5 +21,5 @@ public partial class Account
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 
-    public virtual Atmuser? User { get; set; }
+    public virtual Customer? User { get; set; }
 }

@@ -4,12 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ATM_banking_system.Models;
 
-public partial class Atmuser
+public partial class Customer
 {
     public int UserId { get; set; }
 
     [Required(ErrorMessage = "Name is a required parameter")]
     public string? UserName { get; set; }
+
+    [Required(ErrorMessage = "Password is a required parameter")]
+    public string? Password { get; set; }
 
     [Required(ErrorMessage = "Address is a required parameter")]
     public string? UserAddress { get; set; }

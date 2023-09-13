@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using ATM_banking_system.Models;
 
-namespace ATM_banking_system.Models;
+namespace ATM_banking_system.Data;
 
-public partial class AtmContext : DbContext
+public partial class ATMContext : DbContext
 {
-    public AtmContext()
+    public ATMContext()
     {
     }
 
-    public AtmContext(DbContextOptions<AtmContext> options)
+    public ATMContext(DbContextOptions<ATMContext> options)
         : base(options)
     {
     }
 
     public virtual DbSet<Account> Accounts { get; set; }
 
-    public virtual DbSet<Atmuser> Atmusers { get; set; }
+    public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
@@ -53,7 +54,7 @@ public partial class AtmContext : DbContext
                 .HasConstraintName("FK__Account__UserID__267ABA7A");
         });
 
-        modelBuilder.Entity<Atmuser>(entity =>
+        modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__ATMUser__1788CCAC145AA3FA");
 
