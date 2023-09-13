@@ -16,9 +16,9 @@ namespace ATM_banking_system.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ATMContext _context;
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public CustomerController(ATMContext context, CustomerService customerService)
+        public CustomerController(ATMContext context, ICustomerService customerService)
         {
             _context = context;
             _customerService = customerService;

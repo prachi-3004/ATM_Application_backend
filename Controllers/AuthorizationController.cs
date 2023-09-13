@@ -22,9 +22,9 @@ namespace ATM_banking_system.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public AuthorizationController(IConfiguration config, CustomerService customerService)
+        public AuthorizationController(IConfiguration config, ICustomerService customerService)
         {
             _config = config;
             _customerService = customerService;

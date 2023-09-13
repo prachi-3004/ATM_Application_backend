@@ -6,8 +6,8 @@ namespace ATM_banking_system.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly ATMDB_Repository _provider;
-        public CustomerService(ATMDB_Repository provider)
+        private readonly IATMDB_Repository _provider;
+        public CustomerService(IATMDB_Repository provider)
         {
             _provider = provider;
         }
