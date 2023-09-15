@@ -9,7 +9,7 @@ public partial class Customer
     public int UserId { get; set; }
 
     [Required(ErrorMessage = "Name is a required parameter")]
-    public string? UserName { get; set; }
+    public string UserName { get; set; }
 
     [Required(ErrorMessage = "Password is a required parameter")]
     public string? Password { get; set; }

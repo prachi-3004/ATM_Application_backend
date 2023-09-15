@@ -6,6 +6,6 @@ namespace ATM_banking_system.Data.Repositories
     {
         public Customer GetCustomer(int id);
 
-        public Customer GetCustomerDetail(CustomerLogin login);
+        public Customer GetCustomerDetail(Login login);
     }
 }

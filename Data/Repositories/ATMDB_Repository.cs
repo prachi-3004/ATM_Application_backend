@@ -31,7 +31,7 @@ namespace ATM_banking_system.Data.Repositories
             return customer;
         }
 
-        public Customer GetCustomerDetail(CustomerLogin login)
+        public Customer GetCustomerDetail(Login login)
         {
             return _context.Customers.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefault();
         }

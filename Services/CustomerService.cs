@@ -16,7 +16,7 @@ namespace ATM_banking_system.Services
             return _provider.GetCustomer(id);
         }
 
-        public Customer GetCustomerDetail(CustomerLogin login)
+        public Customer GetCustomerDetail(Login login)
         {
             return _provider.GetCustomerDetail(login);
         }

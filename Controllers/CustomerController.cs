@@ -75,17 +75,18 @@ namespace ATM_banking_system.Controllers
 
         // POST: api/AtmUsers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("AddCustomer")]
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostAtmuser(Customer atmuser)
+        public async Task<ActionResult<Customer>> AddCustomer(Customer cust)
         {
-          if (_context.Customers == null)
-          {
-              return Problem("Entity set 'AtmContext.Atmusers'  is null.");
-          }
-            _context.Customers.Add(atmuser);
+            if (_context.Customers == null)
+            {
+                return Problem("Entity set 'AtmContext.Atmusers'  is null.");
+            }
+            _context.Customers.Add(cust);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAtmuser", new { id = atmuser.UserId }, atmuser);
+            return CreatedAtAction("GetCustomer", new { id = cust.UserId }, cust);
         }
 
         // DELETE: api/AtmUsers/5

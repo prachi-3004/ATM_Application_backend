@@ -31,46 +31,54 @@ namespace ATM_banking_system.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(CustomerLogin login)
+        public IActionResult Login(Login login)
         {
             IActionResult response = Unauthorized();
             var user = AuthenticateUser(login);
 
             if (user != null)
             {
-                var tokenString = GenerateJSONWebToken(user);
+                var tokenString = GenerateJSONWebToken(user, login.Role);
 
-                response = Ok(new LoginResponse { token = tokenString, User_Id = login.UserName, Role=0 });
+                response = Ok(new LoginResponse { token = tokenString, User_Id = user, Role=0 });
             }
 
             return response;
         }
 
-        private string GenerateJSONWebToken(Customer userInfo)
+        private string GenerateJSONWebToken(string username, string role)
         {
-
-            if (userInfo is null)
-            {
-                throw new ArgumentNullException(nameof(userInfo));
-            }
             List<Claim> claims = new List<Claim>();
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            claims.Add(new Claim("UserName", userInfo.UserName));
-            claims.Add(new Claim("role", "Customer"));
+            claims.Add(new Claim("username", username));
+            claims.Add(new Claim("role", role));
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
-              expires: DateTime.Now.AddMinutes(2),
+              expires: DateTime.Now.AddMinutes(10),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private Customer AuthenticateUser(CustomerLogin login)
+        private string AuthenticateUser(Login login)
         {
-            Customer cust = _customerService.GetCustomerDetail(login);
-            return cust;
+            string username = "Unauthorized";
+            if (login.Role == "Customer")
+            {
+                Customer cust = _customerService.GetCustomerDetail(login);
+                if (cust != null)
+                {
+                    username = cust.UserName;
+                }
+            }
+            //else if (login.Role == "Employee")
+            //{
+            //    Employee emp = 
+            //}
+
+            return username;
         }
 
     }
