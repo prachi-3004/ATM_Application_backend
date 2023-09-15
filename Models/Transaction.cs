@@ -7,9 +7,9 @@ namespace ATM_banking_system.Models;
 
 public partial class Transaction
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    //[Key]
+    //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    //public int Id { get; set; }
 
     public int TransactionId { get; set; }
 
