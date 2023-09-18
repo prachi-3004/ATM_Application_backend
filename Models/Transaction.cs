@@ -1,23 +1,19 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
-namespace ATM_banking_system.Models;
+namespace ATM.Models;
 
 public partial class Transaction
 {
-    //[Key]
-    //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    //public int Id { get; set; }
+    public int Id { get; set; }
 
-    public int TransactionId { get; set; }
-
-    public string? TransactionType { get; set; }
+    public string? Type { get; set; }
 
     public int? AccountId { get; set; }
 
-    public DateTime? DateOfTransaction { get; set; }
+    public DateTime? Time { get; set; }
+
+    public int? LinkedId { get; set; }
 
     public int? Amount { get; set; }
 

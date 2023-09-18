@@ -1,4 +1,4 @@
-﻿namespace ATM_banking_system.Models
+﻿namespace ATM.Models
 {
     public partial class Login
     {

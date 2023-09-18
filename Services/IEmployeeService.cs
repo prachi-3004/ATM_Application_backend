@@ -1,8 +1,9 @@
-﻿using ATM_banking_system.Models;
+﻿using ATM.Models;
 
-namespace ATM_banking_system.Services
+namespace ATM.Services
 {
     public interface IEmployeeService
     {
+        public Employee GetEmployeeDetail(Login login);
     }
 }

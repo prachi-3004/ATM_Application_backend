@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace ATM_banking_system.Models;
+namespace ATM.Models;
 
 public partial class Customer
 {
-    public int UserId { get; set; }
+    public int Id { get; set; }
 
-    [Required(ErrorMessage = "Name is a required parameter")]
-    public string UserName { get; set; }
+    public string Name { get; set; } = null!;
 
-    [Required(ErrorMessage = "Password is a required parameter")]
-    public string? Password { get; set; }
+    public string UserName { get; set; } = null!;
 
-    [Required(ErrorMessage = "Address is a required parameter")]
-    public string? UserAddress { get; set; }
+    public string? Address { get; set; }
 
-    [Required(ErrorMessage = "City is a required parameter")]
     public string? City { get; set; }
 
-    [EmailAddress(ErrorMessage = "Enter a valid Email Address")]
-    [Required(ErrorMessage = "Email is a required parameter")]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
     public string? Contact { get; set; }
+
+    public string Password { get; set; } = null!;
 
     public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 }

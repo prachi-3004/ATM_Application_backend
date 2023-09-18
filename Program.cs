@@ -1,12 +1,12 @@
-using ATM_banking_system.Models;
-using ATM_banking_system.Data;
+using ATM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ATM_banking_system.Services;
-using ATM_banking_system.Data.Repositories;
+using ATM.Services;
+using ATM.Data.Repositories;
 using Microsoft.OpenApi.Models;
+using ATM.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +37,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IATMDB_Repository, ATMDB_Repository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Authorization", Version = "v1" });

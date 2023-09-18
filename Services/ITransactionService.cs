@@ -1,9 +1,6 @@
-﻿using ATM_banking_system.Models;
-
-namespace ATM_banking_system.Services
+﻿namespace ATM.Services
 {
-    public interface ITransactionService
+    public class ITransactionService
     {
-        public bool AddTransaction(Transaction transaction);
     }
 }

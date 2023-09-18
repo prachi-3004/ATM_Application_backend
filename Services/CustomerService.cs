@@ -1,24 +1,24 @@
-﻿using ATM_banking_system.Data;
-using ATM_banking_system.Models;
-using ATM_banking_system.Data.Repositories;
+﻿using ATM.Data;
+using ATM.Models;
+using ATM.Data.Repositories;
 
-namespace ATM_banking_system.Services
+namespace ATM.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly IATMDB_Repository _provider;
-        public CustomerService(IATMDB_Repository provider)
+        private readonly ICustomerRepository _custRepository;
+        public CustomerService(ICustomerRepository custRepository)
         {
-            _provider = provider;
+            _custRepository = custRepository;
         }
         public Customer GetCustomer(int id)
         {
-            return _provider.GetCustomer(id);
+            return _custRepository.GetCustomer(id);
         }
 
         public Customer GetCustomerDetail(Login login)
         {
-            return _provider.GetCustomerDetail(login);
+            return _custRepository.GetCustomerDetail(login);
         }
     }
 }

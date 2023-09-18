@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ATM_banking_system.Data;
-using ATM_banking_system.Models;
-using ATM_banking_system.Services;
+using ATM.Data;
+using ATM.Models;
+using ATM.Services;
 
-namespace ATM_banking_system.Controllers
+namespace ATM.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,10 +28,10 @@ namespace ATM_banking_system.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetAtmusers()
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
             return await _context.Customers.ToListAsync();
         }
 
@@ -47,7 +47,7 @@ namespace ATM_banking_system.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAtmuser(int id, Customer atmuser)
         {
-            if (id != atmuser.UserId)
+            if (id != atmuser.Id)
             {
                 return BadRequest();
             }
@@ -86,7 +86,7 @@ namespace ATM_banking_system.Controllers
             _context.Customers.Add(cust);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = cust.UserId }, cust);
+            return CreatedAtAction("GetCustomer", new { id = cust.Id }, cust);
         }
 
         // DELETE: api/AtmUsers/5
@@ -111,7 +111,7 @@ namespace ATM_banking_system.Controllers
 
         private bool AtmuserExists(int id)
         {
-            return (_context.Customers?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Customers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
