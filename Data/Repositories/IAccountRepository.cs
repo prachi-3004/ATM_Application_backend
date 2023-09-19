@@ -8,7 +8,7 @@ namespace ATM.Data.Repositories
 
         public Task<int> UpdateAccount(Account account);
 
-        public Task<Account> GetAccountById(int id);
+        public Task<Account> GetAccountByID(int id);
 
         public Task<List<Account>> GetAllAccounts();
 

@@ -17,12 +17,12 @@ namespace ATM.Data.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<Account> GetAccountById(int id)
+        public async Task<Account> GetAccountByID(int id)
         {
             var account = await _context.Accounts.Where(a => a.Id == id).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("No such account was found!");
+                throw new Exception("Account not found!");
             }
             return account;
         }
@@ -32,7 +32,7 @@ namespace ATM.Data.Repositories
             var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (customer == null)
             {
-                throw new Exception("No such customer was found!");
+                throw new Exception("Customer not found!");
             }
             return customer.Accounts.ToList();
         }
@@ -47,7 +47,7 @@ namespace ATM.Data.Repositories
             var account = await _context.Accounts.Where(a => a.Id == updated_account.Id).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("No such account was found!");
+                throw new Exception("Account not found!");
             }
             //account.CustomerId = updated_account.CustomerId;
             account.Type = updated_account.Type;
@@ -63,7 +63,7 @@ namespace ATM.Data.Repositories
             var account = await _context.Accounts.Where(a => a.Id == id).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("No such account was found!");
+                throw new Exception("Account not found!");
             }
             return account.Balance;
         }
@@ -73,7 +73,7 @@ namespace ATM.Data.Repositories
             var account = await _context.Accounts.Where(a => a.Id == id).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("No such account was found!");
+                throw new Exception("Account not found!");
             }
             account.Balance += amount;
             return await _context.SaveChangesAsync();
@@ -84,7 +84,7 @@ namespace ATM.Data.Repositories
             var account = await _context.Accounts.Where(a => a.Id == id).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("No such account was found!");
+                throw new Exception("Account not found!");
             }
             _context.Accounts.Remove(account);
             return await _context.SaveChangesAsync();
