@@ -62,7 +62,7 @@ namespace ATM.Controllers
 
         // POST: api/AtmUsers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Route("AddCustomer")]
+        [Route("Add")]
         [HttpPost]
         public async Task<ActionResult<Customer>> AddCustomer(Customer cust)
         {
@@ -92,7 +92,7 @@ namespace ATM.Controllers
             }
         }
 
-        [Route("UpdateCustomer/{id}")]
+        [Route("UpdateDetails/{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateCustomer(int id, Customer customer)
         {
