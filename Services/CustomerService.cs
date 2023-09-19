@@ -13,7 +13,7 @@ namespace ATM.Services
         }
         public async Task<Customer> GetCustomer(int id)
         {
-            return await _custRepository.GetCustomer(id);
+            return await _custRepository.GetCustomerByID(id);
         }
 
         public async Task<Customer> GetCustomerDetail(Login login)
