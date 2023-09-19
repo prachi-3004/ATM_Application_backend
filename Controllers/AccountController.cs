@@ -56,20 +56,17 @@ namespace ATM.Controllers
         }
 
         [HttpPatch]
-        public async Task<ActionResult<Account>> ChangePin([FromBody] string newPin, [FromBody] int accountID)
+        public async Task<ActionResult<Account>> ChangePin([FromBody] int accountID, string newPin)
         {
-
             try
             {
                 Account acc = await _accountService.ChangePin(accountID, newPin);
                 return Ok(acc);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
-
-
         }
 
 
