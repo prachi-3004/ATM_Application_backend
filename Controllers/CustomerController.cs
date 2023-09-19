@@ -24,15 +24,23 @@ namespace ATM.Controllers
             _customerService = customerService;
         }
 
-        // GET: api/AtmUsers
+        [Route("GetAll")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetAtmusers()
+        public async Task<ActionResult<List<Customer>>> GetAllCustomers()
         {
-            if (_context.Customers == null)
+            try
             {
-                return NotFound();
+                var customers = await _customerService.GetAllCustomers();
+                if (customers.Count == 0)
+                {
+                    return NoContent();
+                }
+                return Ok(customers);
             }
-            return await _context.Customers.ToListAsync();
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
 
         // GET: api/AtmUsers/5

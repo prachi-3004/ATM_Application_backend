@@ -20,5 +20,15 @@ namespace ATM.Services
         {
             return await _custRepository.GetCustomerDetail(login);
         }
+
+        public async Task<List<Customer>> GetAllCustomers()
+        {
+            return await _custRepository.GetAllCustomers();
+        }
+
+        public async Task<int> DeleteCustomer(int id)
+        {
+            return await _custRepository.DeleteCustomer(id);
+        }
     }
 }

@@ -8,28 +8,27 @@ namespace ATM.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly 
 
-        [Route("AddAccount")]
-        [HttpPost]
-        public async Task<ActionResult<Account>> AddAccount(Account account)
-        {
-            try
-            {
-                if (account == null)
-                {
-                    return Problem("Account provided is null.");
-                }
-                else
-                {
+        //[Route("AddAccount")]
+        //[HttpPost]
+        //public async Task<ActionResult<Account>> AddAccount(Account account)
+        //{
+        //    try
+        //    {
+        //        if (account == null)
+        //        {
+        //            return Problem("Account provided is null.");
+        //        }
+        //        else
+        //        {
 
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred" + ex.Message);
-            }
-        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "An error occurred" + ex.Message);
+        //    }
+        //}
 
 
     }

@@ -7,5 +7,11 @@ namespace ATM.Services
         public Task<Customer> GetCustomer(int id);
 
         public Task<Customer> GetCustomerDetail(Login login);
+
+        public Task<List<Customer>> GetAllCustomers();
+
+        public Task<int> DeleteCustomer(int id);
+
+
     }
 }

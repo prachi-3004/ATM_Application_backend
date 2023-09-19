@@ -75,6 +75,13 @@ C:\Users\e_sai\OneDrive\Desktop\ATM\obj\Debug\net7.0\refint\ATM.dll
 C:\Users\e_sai\OneDrive\Desktop\ATM\obj\Debug\net7.0\ATM.pdb
 C:\Users\e_sai\OneDrive\Desktop\ATM\obj\Debug\net7.0\ATM.genruntimeconfig.cache
 C:\Users\e_sai\OneDrive\Desktop\ATM\obj\Debug\net7.0\ref\ATM.dll
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.csproj.AssemblyReference.cache
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.AssemblyInfoInputs.cache
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.AssemblyInfo.cs
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.csproj.CoreCompileInputs.cache
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\appsettings.json
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\ATM.exe
@@ -131,13 +138,6 @@ C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\runtime
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.csproj.AssemblyReference.cache
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.AssemblyInfoInputs.cache
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.AssemblyInfo.cs
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.csproj.CoreCompileInputs.cache
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\ATM.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\staticwebassets\msbuild.ATM.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\staticwebassets\msbuild.build.ATM.props
 C:\Users\e_sai\OneDrive\Desktop\ATM_Application_backend\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ATM.props
