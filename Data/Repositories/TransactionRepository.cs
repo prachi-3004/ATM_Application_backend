@@ -42,5 +42,11 @@ namespace ATM.Data.Repositories
             }
             return account.Transactions.ToList();
         }
+
+        public async Task<int> SaveDBChanges()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
     }
 }

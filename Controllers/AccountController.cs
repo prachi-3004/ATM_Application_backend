@@ -9,7 +9,6 @@ namespace ATM.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-
         private readonly IAccountService _accountService;
 
         public AccountController(IAccountService accountService)
@@ -38,6 +37,23 @@ namespace ATM.Controllers
         //    }
         //}
 
+        [HttpGet]
+        public async Task<ActionResult<List<Account>>> GetAllAccounts()
+        {
+            try
+            {
+                var accounts = await _accountService.GetAllAccounts();
+                if (accounts.Count == 0)
+                {
+                    return NoContent();
+                }
+                return Ok(accounts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
 
         [HttpPatch]
         public async Task<ActionResult<Account>> ChangePin([FromBody] string newPin, [FromBody] int accountID)

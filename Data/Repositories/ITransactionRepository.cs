@@ -11,5 +11,7 @@ namespace ATM.Data.Repositories
         public Task<List<Transaction>> GetAllTransactions();
 
         public Task<List<Transaction>> GetTransactionsByAccount(int id);
+
+        public Task<int> SaveDBChanges();
     }
 }

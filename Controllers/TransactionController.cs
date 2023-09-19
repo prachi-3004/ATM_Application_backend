@@ -10,23 +10,40 @@ namespace ATM.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+        private readonly IAccountService _accountService;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IAccountService accountService)
         {
             _transactionService = transactionService;
+            _accountService = accountService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddTransaction(TransactionRequest request)
-        //{
-        //    try
-        //    {
-        //        var result = await _transactionService.ProcessTransaction(request);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddTransaction(TransactionRequest request)
+        {
+            try
+            {
+                var result = await _transactionService.ProcessTransaction(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Transaction>>> MiniStatement(int id)
+        {
+            try
+            {
+                var result = await _accountService.MiniStatementByAccount(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
