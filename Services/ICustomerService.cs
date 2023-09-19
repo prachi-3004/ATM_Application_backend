@@ -4,7 +4,9 @@ namespace ATM.Services
 {
     public interface ICustomerService
     {
-        public Task<Customer> GetCustomer(int id);
+        public Task<int> AddCustomer(Customer customer);
+
+        public Task<Customer> GetCustomerByID(int id);
 
         public Task<Customer> GetCustomerDetail(Login login);
 
@@ -12,6 +14,9 @@ namespace ATM.Services
 
         public Task<int> DeleteCustomer(int id);
 
+        public Task<int> UpdateCustomer(Customer customer);
+
+        public Task<int> UpdateCredentials(int id, Login login);
 
     }
 }

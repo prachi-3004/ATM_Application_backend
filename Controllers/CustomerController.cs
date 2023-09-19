@@ -15,12 +15,10 @@ namespace ATM.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ATMContext _context;
         private readonly ICustomerService _customerService;
 
-        public CustomerController(ATMContext context, ICustomerService customerService)
+        public CustomerController(ICustomerService customerService)
         {
-            _context = context;
             _customerService = customerService;
         }
 
@@ -43,42 +41,23 @@ namespace ATM.Controllers
             }
         }
 
-        // GET: api/AtmUsers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        [Route("Get/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Customer>> GetCustomerByID(int id)
         {
-            return Ok(_customerService.GetCustomer(id));
-        }
-
-        // PUT: api/AtmUsers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAtmuser(int id, Customer atmuser)
-        {
-            if (id != atmuser.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(atmuser).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var customer = await _customerService.GetCustomerByID(id);
+                if (customer == null)
+                {
+                    return NoContent();
+                }
+                return Ok(customer);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AtmuserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(500, ex.Message);
             }
-
-            return NoContent();
         }
 
         // POST: api/AtmUsers
@@ -87,39 +66,61 @@ namespace ATM.Controllers
         [HttpPost]
         public async Task<ActionResult<Customer>> AddCustomer(Customer cust)
         {
-            if (_context.Customers == null)
+            try
             {
-                return Problem("Entity set 'AtmContext.Atmusers'  is null.");
+                var customer = await _customerService.AddCustomer(cust);
+                return Ok(customer);
             }
-            _context.Customers.Add(cust);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCustomer", new { id = cust.Id }, cust);
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        // DELETE: api/AtmUsers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAtmuser(int id)
+        [Route("Delete/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            if (_context.Customers == null)
+            try
             {
-                return NotFound();
+                var result = await _customerService.DeleteCustomer(id);
+                return Ok(result);
             }
-            var atmuser = await _context.Customers.FindAsync(id);
-            if (atmuser == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, ex.Message);
             }
-
-            _context.Customers.Remove(atmuser);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool AtmuserExists(int id)
+        [Route("UpdateCustomer/{id}")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCustomer(int id, Customer customer)
         {
-            return (_context.Customers?.Any(e => e.Id == id)).GetValueOrDefault();
+            try
+            {
+                customer.Id = id;
+                var result = await _customerService.UpdateCustomer(customer);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Route("UpdateCredentials/{id}")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCredentials(int id, Login login)
+        {
+            try
+            {
+                var result = await _customerService.UpdateCredentials(id, login);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

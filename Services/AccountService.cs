@@ -1,5 +1,6 @@
 ﻿using ATM.Data.Repositories;
 using ATM.Models;
+using Microsoft.Identity.Client;
 
 namespace ATM.Services
 {
@@ -27,11 +28,17 @@ namespace ATM.Services
 
         public async Task<Account> ChangePin(int accountID, string newPin)
         {
-           Account acc = await _accountRepository.GetAccountByID(accountID);
+            Account acc = await _accountRepository.GetAccountByID(accountID);
             acc.Pin = newPin;
-           await _accountRepository.UpdateAccount(acc);
+            await _accountRepository.UpdateAccount(acc);
             return acc;
-            
+        }
+
+        public async Task<int> CloseAccount(int id)
+        {
+            Account account = await _accountRepository.GetAccountByID(id);
+            account.Type = "Closed";
+            return await _accountRepository.UpdateAccount(account);
         }
 
     }

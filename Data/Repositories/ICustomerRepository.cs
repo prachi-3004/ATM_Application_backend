@@ -10,6 +10,8 @@ namespace ATM.Data.Repositories
 
         public Task<List<Customer>> GetAllCustomers();
 
+        public Task<int> AddCustomer(Customer customer);
+
         public Task<int> UpdateCustomer(Customer customer);
 
         public Task<int> UpdateCredentials(int id, Login login);

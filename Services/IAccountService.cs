@@ -10,6 +10,8 @@ namespace ATM.Services
 
         public Task<Account> ChangePin(int accountId, string newPin);
 
+        public Task<int> CloseAccount(int id);
+
         //public Task<List<Account>> GetAccountByID(int id);
 
         //public Task<List<Account>> GetAccountsByCustomer(int id);

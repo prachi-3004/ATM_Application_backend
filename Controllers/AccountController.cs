@@ -37,6 +37,7 @@ namespace ATM.Controllers
         //    }
         //}
 
+        [Route("GetAll")]
         [HttpGet]
         public async Task<ActionResult<List<Account>>> GetAllAccounts()
         {
@@ -55,12 +56,13 @@ namespace ATM.Controllers
             }
         }
 
-        [HttpPatch]
-        public async Task<ActionResult<Account>> ChangePin([FromBody] int accountID, string newPin)
+        [Route("ChangePin/{id}")]
+        [HttpPut]
+        public async Task<ActionResult<Account>> ChangePin(int id, string newPin)
         {
             try
             {
-                Account acc = await _accountService.ChangePin(accountID, newPin);
+                Account acc = await _accountService.ChangePin(id, newPin);
                 return Ok(acc);
             }
             catch (Exception ex)

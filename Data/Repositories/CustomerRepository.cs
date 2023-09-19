@@ -40,6 +40,12 @@ namespace ATM.Data.Repositories
             return await _context.Customers.ToListAsync();
         }
     
+        public async Task<int> AddCustomer(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> UpdateCustomer(Customer updated_customer)
         {
             var customer = await _context.Customers.Where(c => c.Id == updated_customer.Id).FirstOrDefaultAsync();
