@@ -6,6 +6,6 @@ namespace ATM.Services
     {
         public string GenerateJSONWebToken(string username, string role);
 
-        public string AuthenticateUser(Login login);
+        public Task<string> AuthenticateUser(Login login);
     }
 }

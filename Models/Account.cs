@@ -17,7 +17,7 @@ public partial class Account
 
     public string? Pin { get; set; }
 
-    public int? Balance { get; set; }
+    public int Balance { get; set; } = 0;
 
     public virtual Customer? Customer { get; set; }
 

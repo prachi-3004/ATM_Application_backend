@@ -24,12 +24,12 @@ namespace ATM.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             IActionResult response = Unauthorized();
-            var user = _authService.AuthenticateUser(login);
+            var user = await _authService.AuthenticateUser(login);
 
-            if (user != null && user != "Unauthorized")
+            if (user != null)
             {
                 var tokenString = _authService.GenerateJSONWebToken(user, login.Role);
 

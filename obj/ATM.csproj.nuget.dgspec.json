@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM\\ATM.csproj": {}
+    "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM_Application_backend\\ATM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM\\ATM.csproj": {
+    "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM_Application_backend\\ATM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM\\ATM.csproj",
+        "projectUniqueName": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM_Application_backend\\ATM.csproj",
         "projectName": "ATM",
-        "projectPath": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM\\ATM.csproj",
+        "projectPath": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM_Application_backend\\ATM.csproj",
         "packagesPath": "C:\\Users\\e_sai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM\\obj\\",
+        "outputPath": "C:\\Users\\e_sai\\OneDrive\\Desktop\\ATM_Application_backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\e_sai\\AppData\\Roaming\\NuGet\\NuGet.Config",

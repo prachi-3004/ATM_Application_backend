@@ -11,14 +11,14 @@ namespace ATM.Services
         {
             _custRepository = custRepository;
         }
-        public Customer GetCustomer(int id)
+        public async Task<Customer> GetCustomer(int id)
         {
-            return _custRepository.GetCustomer(id);
+            return await _custRepository.GetCustomer(id);
         }
 
-        public Customer GetCustomerDetail(Login login)
+        public async Task<Customer> GetCustomerDetail(Login login)
         {
-            return _custRepository.GetCustomerDetail(login);
+            return await _custRepository.GetCustomerDetail(login);
         }
     }
 }

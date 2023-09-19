@@ -35,12 +35,12 @@ namespace ATM.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string AuthenticateUser(Login login)
+        public async Task<string> AuthenticateUser(Login login)
         {
             string username = "Unauthorized";
             if (login.Role == "Customer")
             {
-                Customer cust = _customerService.GetCustomerDetail(login);
+                Customer cust = await _customerService.GetCustomerDetail(login);
                 if (cust != null)
                 {
                     username = cust.UserName;

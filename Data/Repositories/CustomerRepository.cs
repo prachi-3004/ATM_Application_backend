@@ -14,26 +14,19 @@ namespace ATM.Data.Repositories
         {
             _context = context;
         }
-        public Customer GetCustomer(int id)
+        public async Task<Customer> GetCustomer(int id)
         {
 
             if (_context.Customers == null)
             {
                 return null;
             }
-            var customer = _context.Customers.Where(c => c.Id == id).FirstOrDefault();
-
-            if (customer == null)
-            {
-                return null;
-            }
-
-            return customer;
+            return await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
         }
 
-        public Customer GetCustomerDetail(Login login)
+        public async Task<Customer> GetCustomerDetail(Login login)
         {
-            return _context.Customers.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefault();
+            return await _context.Customers.Where(c => c.UserName == login.UserName && c.Password == login.Password).SingleOrDefaultAsync();
         }
     }
 }
