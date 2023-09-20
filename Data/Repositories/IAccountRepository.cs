@@ -4,7 +4,7 @@ namespace ATM.Data.Repositories
 {
     public interface IAccountRepository
     {
-        public Task<int> AddAccount(Account account);
+        public Task<Account> AddAccount(Account account);
 
         public Task<int> UpdateAccount(Account account);
 
@@ -19,5 +19,7 @@ namespace ATM.Data.Repositories
         public Task<int> ChangeAccountBalance(int id, int amount);
 
         public Task<int> DeleteAccount(int id);
+
+        public Task<int> SaveDBChanges();
     }
 }

@@ -11,10 +11,11 @@ namespace ATM.Data.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAccount(Account account)
+        public async Task<Account> AddAccount(Account account)
         {
             _context.Accounts.Add(account);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return account;
         }
 
         public async Task<Account> GetAccountByID(int id)
@@ -87,6 +88,11 @@ namespace ATM.Data.Repositories
                 throw new Exception("Account not found!");
             }
             _context.Accounts.Remove(account);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveDBChanges()
+        {
             return await _context.SaveChangesAsync();
         }
     }

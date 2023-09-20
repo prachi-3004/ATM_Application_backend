@@ -8,16 +8,22 @@ namespace ATM.Services
     {
         private readonly IAccountRepository _accountRepository;
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public AccountService(IAccountRepository accountRepository, ITransactionRepository transactionRepository)
+        public AccountService(IAccountRepository accountRepository, ITransactionRepository transactionRepository, ICustomerRepository customerRepository)
         {
             _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<int> AddAccount(Account account)
         {
-            return await _accountRepository.AddAccount(account);
+            var added_account = await _accountRepository.AddAccount(account);
+            var customer = await _customerRepository.GetCustomerByID(added_account.CustomerId);
+            added_account.Customer = customer;
+            customer.Accounts.Add(added_account);
+            return await _accountRepository.SaveDBChanges();
         }
 
         public async Task<List<Account>> GetAccountsByCustomer(int id)
