@@ -6,7 +6,7 @@ namespace ATM.Services
     {
         public Task<int> AddAccount(Account account);
 
-        public Task<Account> GetAccountByID(int id);
+        public Task<List<Account>> GetAccountsByCustomer(int id);
 
         public Task<List<Account>> GetAllAccounts();
 

@@ -31,13 +31,13 @@ namespace ATM.Controllers
             }
         }
 
-        [Route("GetAccount/{id}")]
+        [Route("GetAccountByCustomer/{id}")]
         [HttpGet]
-        public async Task<ActionResult<Account>> GetAccountByID(int id)
+        public async Task<ActionResult<List<Account>>> GetAccountsByCustomer(int id)
         {
             try
             {
-                var account = await _accountService.GetAccountByID(id);
+                var account = await _accountService.GetAccountsByCustomer(id);
                 return Ok(account);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace ATM.Controllers
                     return NoContent();
                 }
                 return Ok(accounts);
-            }
+            } 
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");

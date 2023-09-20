@@ -20,9 +20,9 @@ namespace ATM.Services
             return await _accountRepository.AddAccount(account);
         }
 
-        public async Task<Account> GetAccountByID(int id)
+        public async Task<List<Account>> GetAccountsByCustomer(int id)
         {
-            return await _accountRepository.GetAccountByID(id);
+            return await _accountRepository.GetAccountsByCustomer(id);
         }
 
         public async Task<List<Account>> GetAllAccounts()
