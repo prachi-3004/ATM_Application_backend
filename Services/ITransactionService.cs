@@ -11,5 +11,7 @@ namespace ATM.Services
         public Task<int> AddDeposit(TransactionRequest request);
 
         public Task<int> AddWithdrawal(TransactionRequest request);
+
+        public Task<List<Transaction>> GetTransactionsByAccount(int id);
     }
 }

@@ -36,12 +36,6 @@ namespace ATM.Services
             return await _accountRepository.GetAllAccounts();
         }
 
-        public async Task<List<Transaction>> MiniStatementByAccount(int id)
-        {
-            var account = await _accountRepository.GetAccountByID(id);
-            return account.Transactions.ToList();
-        }
-
         public async Task<Account> ChangePin(int accountID, string newPin)
         {
             Account acc = await _accountRepository.GetAccountByID(accountID);

@@ -51,15 +51,11 @@ namespace ATM.Services
                 transaction1.Amount = request.Amount;
                 transaction.Time = DateTime.Now;
                 transaction1.Time = DateTime.Now;
-                transaction.Account = account;
-                transaction1.Account = account1;
                 await _transactionRepository.AddTransaction(transaction);
                 await _transactionRepository.AddTransaction(transaction1);
                 transaction.LinkedId = transaction1.Id;
                 transaction1.LinkedId = transaction.Id;
                 await _transactionRepository.SaveDBChanges();
-                account.Transactions.Add(transaction);
-                account1.Transactions.Add(transaction1);
                 await _accountRepository.ChangeAccountBalance(account.Id, -1*request.Amount);
                 return await _accountRepository.ChangeAccountBalance(account1.Id, request.Amount);
             }
@@ -77,9 +73,7 @@ namespace ATM.Services
             transaction.AccountId = account.Id;
             transaction.Amount = request.Amount;
             transaction.Time = DateTime.Now;
-            transaction.Account = account;
             await _transactionRepository.AddTransaction(transaction);
-            account.Transactions.Add(transaction);
             return await _accountRepository.ChangeAccountBalance(account.Id, request.Amount);
         }
 
@@ -93,15 +87,18 @@ namespace ATM.Services
                 transaction.AccountId = account.Id;
                 transaction.Amount = request.Amount;
                 transaction.Time = DateTime.Now;
-                transaction.Account = account;
                 await _transactionRepository.AddTransaction(transaction);
-                account.Transactions.Add(transaction);
                 return await _accountRepository.ChangeAccountBalance(account.Id, -1*request.Amount);
             }
             else
             {
                 throw new InvalidOperationException("Balance Unavailable!");
             }
+        }
+
+        public async Task<List<Transaction>> GetTransactionsByAccount(int id)
+        {
+            return await _transactionRepository.GetTransactionsByAccount(id);
         }
 
     }

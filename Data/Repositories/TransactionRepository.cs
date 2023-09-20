@@ -35,12 +35,12 @@ namespace ATM.Data.Repositories
 
         public async Task<List<Transaction>> GetTransactionsByAccount(int id)
         {
-            var account = await _context.Accounts.Where(a =>  a.Id == id).FirstOrDefaultAsync();
-            if (account == null)
+            var transactions = await _context.Transactions.Where(t =>  t.AccountId == id).ToListAsync();
+            if (transactions == null)
             {
                 throw new Exception("Account not found!");
             }
-            return account.Transactions.ToList();
+            return transactions;
         }
 
         public async Task<int> SaveDBChanges()

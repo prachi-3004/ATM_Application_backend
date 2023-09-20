@@ -30,12 +30,12 @@ namespace ATM.Data.Repositories
 
         public async Task<List<Account>> GetAccountsByCustomer(int id)
         {
-            var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
-            if (customer == null)
+            var accounts = await _context.Accounts.Where(a => a.CustomerId == id).ToListAsync();
+            if (accounts == null)
             {
                 throw new Exception("Customer not found!");
             }
-            return customer.Accounts.ToList();
+            return accounts;
         }
 
         public async Task<List<Account>> GetAllAccounts()

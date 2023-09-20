@@ -10,12 +10,10 @@ namespace ATM.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
-        private readonly IAccountService _accountService;
 
-        public TransactionController(ITransactionService transactionService, IAccountService accountService)
+        public TransactionController(ITransactionService transactionService)
         {
             _transactionService = transactionService;
-            _accountService = accountService;
         }
 
         [HttpPost]
@@ -37,7 +35,7 @@ namespace ATM.Controllers
         {
             try
             {
-                var result = await _accountService.MiniStatementByAccount(id);
+                var result = await _transactionService.GetTransactionsByAccount(id);
                 return Ok(result);
             }
             catch (Exception ex)
