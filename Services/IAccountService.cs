@@ -4,6 +4,10 @@ namespace ATM.Services
 {
     public interface IAccountService
     {
+        public Task<int> AddAccount(Account account);
+
+        public Task<Account> GetAccountByID(int id);
+
         public Task<List<Account>> GetAllAccounts();
 
         public Task<List<Transaction>> MiniStatementByAccount(int id);

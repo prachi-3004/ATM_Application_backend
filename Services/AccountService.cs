@@ -15,6 +15,16 @@ namespace ATM.Services
             _transactionRepository = transactionRepository;
         }
 
+        public async Task<int> AddAccount(Account account)
+        {
+            return await _accountRepository.AddAccount(account);
+        }
+
+        public async Task<Account> GetAccountByID(int id)
+        {
+            return await _accountRepository.GetAccountByID(id);
+        }
+
         public async Task<List<Account>> GetAllAccounts()
         {
             return await _accountRepository.GetAllAccounts();
@@ -40,6 +50,5 @@ namespace ATM.Services
             account.Type = "Closed";
             return await _accountRepository.UpdateAccount(account);
         }
-
     }
 }
