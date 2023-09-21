@@ -1,0 +1,77 @@
+[
+    {
+        "Id": 1,
+        "Currency": "INR",
+        "ConversionRate": 1
+    },
+    {
+        "Id": 2,
+        "Currency": "USD",
+        "ConversionRate": 0.014
+    },
+    {
+        "Id": 3,
+        "Currency": "EUR",
+        "ConversionRate": 0.012
+    },
+    {
+        "Id": 4,
+        "Currency": "JPY",
+        "ConversionRate": 1.53
+    },
+    {
+        "Id": 5,
+        "Currency": "GBP",
+        "ConversionRate": 0.011
+    },
+    {
+        "Id": 6,
+        "Currency": "CNY",
+        "ConversionRate": 0.095
+    },
+    {
+        "Id": 7,
+        "Currency": "AUD",
+        "ConversionRate": 0.02
+    },
+    {
+        "Id": 8,
+        "Currency": "CAD",
+        "ConversionRate": 0.019
+    },
+    {
+        "Id": 9,
+        "Currency": "CHF",
+        "ConversionRate": 0.014
+    },
+    {
+        "Id": 10,
+        "Currency": "HKD",
+        "ConversionRate": 0.11
+    },
+    {
+        "Id": 11,
+        "Currency": "SGD",
+        "ConversionRate": 0.019
+    },
+    {
+        "Id": 12,
+        "Currency": "SEK",
+        "ConversionRate": 0.13
+    },
+    {
+        "Id": 13,
+        "Currency": "KRW",
+        "ConversionRate": 16.5
+    },
+    {
+        "Id": 14,
+        "Currency": "NOK",
+        "ConversionRate": 0.13
+    },
+    {
+        "Id": 15,
+        "Currency": "NZD",
+        "ConversionRate": 0.021
+    }
+]
