@@ -3,7 +3,7 @@ using ATM.Models;
 using Microsoft.Identity.Client;
 
 namespace ATM.Services
-{
+{   
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
@@ -43,12 +43,17 @@ namespace ATM.Services
             await _accountRepository.UpdateAccount(acc);
             return acc;
         }
-
+      
         public async Task<int> CloseAccount(int id)
         {
             Account account = await _accountRepository.GetAccountByID(id);
             account.Type = "Closed";
             return await _accountRepository.UpdateAccount(account);
+        }
+
+        public async Task<Account> GetAccountByID(int id)
+        {
+            return await _accountRepository.GetAccountByID(id);
         }
     }
 }

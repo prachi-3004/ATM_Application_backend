@@ -2,6 +2,7 @@
 using ATM.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Formats.Asn1;
 
 namespace ATM.Controllers
 {
@@ -62,6 +63,25 @@ namespace ATM.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        [Route("GetAccountByID/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Account>> GetAccountByID(int id)
+        {
+            try
+            {
+                var account = await _accountService.GetAccountByID(id);
+                if (account == null)
+                {
+                    return NoContent();
+                }
+                return Ok(account);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
 
