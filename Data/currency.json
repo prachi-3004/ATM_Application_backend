@@ -1,77 +1,77 @@
 [
     {
         "Id": 1,
-        "Currency": "INR",
+        "Code": "INR",
         "ConversionRate": 1
     },
     {
         "Id": 2,
-        "Currency": "USD",
+        "Code": "USD",
         "ConversionRate": 0.014
     },
     {
         "Id": 3,
-        "Currency": "EUR",
+        "Code": "EUR",
         "ConversionRate": 0.012
     },
     {
         "Id": 4,
-        "Currency": "JPY",
+        "Code": "JPY",
         "ConversionRate": 1.53
     },
     {
         "Id": 5,
-        "Currency": "GBP",
+        "Code": "GBP",
         "ConversionRate": 0.011
     },
     {
         "Id": 6,
-        "Currency": "CNY",
+        "Code": "CNY",
         "ConversionRate": 0.095
     },
     {
         "Id": 7,
-        "Currency": "AUD",
+        "Code": "AUD",
         "ConversionRate": 0.02
     },
     {
         "Id": 8,
-        "Currency": "CAD",
+        "Code": "CAD",
         "ConversionRate": 0.019
     },
     {
         "Id": 9,
-        "Currency": "CHF",
+        "Code": "CHF",
         "ConversionRate": 0.014
     },
     {
         "Id": 10,
-        "Currency": "HKD",
+        "Code": "HKD",
         "ConversionRate": 0.11
     },
     {
         "Id": 11,
-        "Currency": "SGD",
+        "Code": "SGD",
         "ConversionRate": 0.019
     },
     {
         "Id": 12,
-        "Currency": "SEK",
+        "Code": "SEK",
         "ConversionRate": 0.13
     },
     {
         "Id": 13,
-        "Currency": "KRW",
+        "Code": "KRW",
         "ConversionRate": 16.5
     },
     {
         "Id": 14,
-        "Currency": "NOK",
+        "Code": "NOK",
         "ConversionRate": 0.13
     },
     {
         "Id": 15,
-        "Currency": "NZD",
+        "Code": "NZD",
         "ConversionRate": 0.021
     }
 ]

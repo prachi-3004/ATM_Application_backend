@@ -15,7 +15,7 @@ public partial class Account
 
     public string? CardNumber { get; set; }
 
-    public string? Pin { get; set; }
+    public string Pin { get; set; }
 
     public int Balance { get; set; } = 0;
 

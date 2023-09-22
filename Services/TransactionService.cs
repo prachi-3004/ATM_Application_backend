@@ -39,7 +39,11 @@ namespace ATM.Services
         {
             var account = await _accountRepository.GetAccountByID((int)request.SenderId);
             var account1 = await _accountRepository.GetAccountByID((int)request.RecipientId);
-            if (account.Balance >= request.Amount)
+            if (account.Pin != request.Pin)
+            {
+                throw new InvalidOperationException("Unauthorized transaction");
+            }
+            else if (account.Balance >= request.Amount)
             {
                 Transaction transaction = new Transaction();
                 Transaction transaction1 = new Transaction();
@@ -68,6 +72,10 @@ namespace ATM.Services
         public async Task<int> AddDeposit(TransactionRequest request)
         {
             var account = await _accountRepository.GetAccountByID((int)request.RecipientId);
+            if (account.Pin != request.Pin)
+            {
+                throw new InvalidOperationException("Unauthorized transaction");
+            }
             Transaction transaction = new Transaction();
             transaction.Type = "Deposit Credit";
             transaction.AccountId = account.Id;
@@ -80,7 +88,11 @@ namespace ATM.Services
         public async Task<int> AddWithdrawal(TransactionRequest request)
         {
             var account = await _accountRepository.GetAccountByID((int)request.SenderId);
-            if (account.Balance >= request.Amount)
+            if (account.Pin != request.Pin)
+            {
+                throw new InvalidOperationException("Unauthorized transaction");
+            }
+            else if (account.Balance >= request.Amount)
             {
                 Transaction transaction = new Transaction();
                 transaction.Type = "Withdrawal Debit";
