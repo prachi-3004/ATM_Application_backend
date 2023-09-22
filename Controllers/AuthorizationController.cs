@@ -29,7 +29,7 @@ namespace ATM.Controllers
             IActionResult response = Unauthorized();
             var user = await _authService.AuthenticateUser(login);
 
-            if (user != null)
+            if (user != null && user != -1)
             {
                 var tokenString = _authService.GenerateJSONWebToken(user, login.Role);
 

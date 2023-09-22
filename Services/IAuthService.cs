@@ -4,8 +4,8 @@ namespace ATM.Services
 {
     public interface IAuthService
     {
-        public string GenerateJSONWebToken(string username, string role);
+        public string GenerateJSONWebToken(int id, int role);
 
-        public Task<string> AuthenticateUser(Login login);
+        public Task<int> AuthenticateUser(Login login);
     }
 }

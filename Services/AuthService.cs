@@ -19,13 +19,13 @@ namespace ATM.Services
             _employeeService = employeeService;
         }
 
-        public string GenerateJSONWebToken(string username, string role)
+        public string GenerateJSONWebToken(int id, int role)
         {
             List<Claim> claims = new List<Claim>();
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            claims.Add(new Claim("username", username));
-            claims.Add(new Claim("role", role));
+            claims.Add(new Claim("username", "{id}"));
+            claims.Add(new Claim("role", "{role}"));
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
@@ -35,27 +35,27 @@ namespace ATM.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<string> AuthenticateUser(Login login)
+        public async Task<int> AuthenticateUser(Login login)
         {
-            string username = "Unauthorized";
-            if (login.Role == "Customer")
+            int user_Id = -1;
+            if (login.Role == 0)
             {
                 Customer cust = await _customerService.GetCustomerDetail(login);
                 if (cust != null)
                 {
-                    username = cust.UserName;
+                    user_Id = cust.Id;
                 }
             }
-            else if (login.Role == "Employee")
+            else if (login.Role == 1)
             {
                 Employee emp = _employeeService.GetEmployeeDetail(login);
                 if (emp != null)
                 {
-                    username = emp.UserName;
+                    user_Id = emp.Id;
                 }
             }
 
-            return username;
+            return user_Id;
         }
 
     }
