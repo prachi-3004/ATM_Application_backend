@@ -7,7 +7,7 @@ namespace ATM.Services
     public class CurrencyService : ICurrencyService
     {
         private List<Currency> _data;
-        private readonly string _filePath;
+        public string _filePath;
 
         public CurrencyService(string filePath)
         {
@@ -19,17 +19,6 @@ namespace ATM.Services
         {
             _data = JsonConvert.DeserializeObject<List<Currency>>(File.ReadAllText(_filePath));
         }
-
-        //public int Convert(string code1, string code2, int amount)
-        //{
-        //    var rate1 = _data.Where(c => c.Code == code1).FirstOrDefault();
-        //    var rate2 = _data.Where(c => c.Code == code2).FirstOrDefault();
-        //    if (rate1 == null && rate2 == null)
-        //    {
-        //        throw new Exception();
-        //    }
-        //    return rate2.ConversionRate * amount / rate1.ConversionRate;
-        //}
 
         public List<string> GetCurrencies()
         {
