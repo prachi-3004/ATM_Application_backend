@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ATM.Models;
 
 public partial class ATMContext : DbContext
 {
-    public ATMContext()
-    {
-    }
+    private readonly IConfiguration _configuration;
 
-    public ATMContext(DbContextOptions<ATMContext> options)
+    public ATMContext(DbContextOptions<ATMContext> options, IConfiguration configuration)
         : base(options)
     {
+        _configuration = configuration;
     }
 
     public virtual DbSet<Account> Accounts { get; set; }
@@ -24,9 +24,11 @@ public partial class ATMContext : DbContext
 
     public virtual DbSet<Transaction> Transactions { get; set; }
 
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=WINDOWS-BVQNF6J;Database=ATM;Trusted_Connection=True;Encrypt=false");
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -45,7 +45,8 @@ builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+//builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+//builder.Services.AddSingleton<CurrencyService>(new CurrencyService("./Data/currency.json"));
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Authorization", Version = "v1" });
