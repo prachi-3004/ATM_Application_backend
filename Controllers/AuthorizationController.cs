@@ -33,7 +33,7 @@ namespace ATM.Controllers
             {
                 var tokenString = _authService.GenerateJSONWebToken(user, login.Role);
 
-                response = Ok(new LoginResponse { token = tokenString, User_Id = user, Role = 0 });
+                response = Ok(new LoginResponse { token = tokenString, User_Id = user, Role = login.Role });
             }
 
             return response;
