@@ -22,11 +22,12 @@ namespace ATM.Controllers
             try
             {
                 var result = await _transactionService.ProcessTransaction(request);
-                return Ok(result);
+                return Ok(1);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                //return StatusCode(500, ex.Message);
+                return Ok(0);
             }
         }
 
