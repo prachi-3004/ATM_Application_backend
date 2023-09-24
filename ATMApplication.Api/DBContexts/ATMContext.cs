@@ -22,8 +22,6 @@ namespace ATMApplication.Api.DBContexts
 		public DbSet<Branch> Branches { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
 		
-		
-		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Customer>()

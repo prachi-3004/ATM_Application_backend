@@ -22,13 +22,13 @@ namespace ATMApplication.Api.Services
         private readonly IConfiguration _configuration;
 		
 		
-		public AuthenticationService(IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, PasswordHasher<Customer> passwordHasher, IConfiguration configuration)
+		public AuthenticationService(IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, IConfiguration configuration)
 		{
 			_employeeRepository = employeeRepository;
 			_customerRepository = customerRepository;
 			_configuration = configuration;
-			_passwordHasher = passwordHasher;
-		}
+            _passwordHasher = new PasswordHasher<Customer>();
+        }
 		
 		private string GenerateToken(List<Claim> claimsForToken)
 		{
