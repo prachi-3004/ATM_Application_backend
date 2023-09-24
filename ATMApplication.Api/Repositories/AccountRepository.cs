@@ -1,4 +1,5 @@
 ﻿using ATMApplication.Api.DBContexts;
+using ATMApplication.Api.Enums;
 using ATMApplication.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,21 +58,27 @@ namespace ATMApplication.Api.Repositories
 		public async Task<int> IncreaseBalance(int accountId, int incrementAmount)
 		{
 			Account account = await GetAccountById(accountId);
-			account.Amount += incrementAmount;
+			account.Balance += incrementAmount;
 			await _context.SaveChangesAsync();
-			return account.Amount;
+			return account.Balance;
 		}
 		
 		
 		public async Task<int> DecreaseBalance(int accountId, int decrementAmount)
 		{
 			Account account = await GetAccountById(accountId);
-			account.Amount -= decrementAmount;
+			account.Balance -= decrementAmount;
 			await _context.SaveChangesAsync();
-			return account.Amount;
+			return account.Balance;
 		}
 		
-		
+		public async Task<int> DisableAccount(int accountId)
+		{
+            Account account = await GetAccountById(accountId);
+			account.Status = (AccountStatus)1;
+			return await _context.SaveChangesAsync();
+        }
+
 	}
 	
 	

@@ -30,7 +30,6 @@ namespace ATMApplication.Api.Models
 			set { _email = value.ToLower(); }
 		}
 		
-		
 		[Required]
 		public string ContactNumber { get; set; }
 		

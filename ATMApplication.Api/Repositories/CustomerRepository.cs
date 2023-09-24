@@ -1,5 +1,6 @@
 using ATMApplication.Api.DBContexts;
 using ATMApplication.Api.Models;
+using ATMApplication.Api.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,13 +17,12 @@ namespace ATMApplication.Api.Repositories
 			_context = context;
 		}
 		
-		
-		public async Task<Customer> CreateCustomer(Customer customer)
+		public async Task<int> CreateCustomer(Customer customer)
 		{
 			try
 			{
 				await _context.Customers.AddAsync(customer);
-				return customer;
+				return await _context.SaveChangesAsync();
 			}
 			catch (Exception ex)
 			{
@@ -30,7 +30,7 @@ namespace ATMApplication.Api.Repositories
 			}
 		}
 		
-		public async Task<Customer> GetCustomerById(int id)
+		public async Task<Customer> GetCustomerByID(int id)
 		{
 			Customer? customer =  await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
 			
@@ -40,12 +40,10 @@ namespace ATMApplication.Api.Repositories
 			}
 			
 			return customer;
-			
 		}
 		
 		public async Task<Customer> GetCustomerByEmail(string email)
 		{
-			
 			Customer? customer =  await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
 			
 			if(customer == null)
@@ -54,34 +52,55 @@ namespace ATMApplication.Api.Repositories
 			}
 			
 			return customer;
-			
 		}
 		
-		
-		private bool IsPasswordCorrect(Customer customer, string password)
+		public async Task<List<Customer>> GetAllCustomers()
 		{
-			return customer.Password == password;
+			return await _context.Customers.ToListAsync();
 		}
 		
-		
-		public async Task<Customer> ValidateCustomer(string email, string password)
+		public async Task<int> UpdateCustomer(Customer updated_customer)
 		{
-			
-			Customer? customer =  await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
-			
-			if(customer == null || !IsPasswordCorrect(customer, password))
+			try
 			{
-				throw new Exception($"Invalid Email or Password");
+                var customer = await _context.Customers.Where(c => c.Id == updated_customer.Id).FirstOrDefaultAsync();
+                if (customer == null)
+                {
+                    throw new Exception($"Customer with Email: {updated_customer.Email} not Found");
+                }
+				customer.GovernmentId = updated_customer.GovernmentId;
+				customer.Email = updated_customer.Email;
+				customer.ContactNumber = updated_customer.ContactNumber;
+				customer.Password = updated_customer.Password;
+				customer.Name = updated_customer.Name;
+				customer.Address = updated_customer.Address;
+				customer.City = updated_customer.City;
+				customer.DateOfBirth = updated_customer.DateOfBirth;
+				return await _context.SaveChangesAsync();
+            }
+			catch (Exception ex)
+			{
+				throw new Exception("Failed to update customer!");
 			}
-			
-			return customer;
-			
 		}
-		
-		
-		
-		
-	}
+
+		public async Task<int> DeleteCustomer(int id)
+		{
+			var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
+            if (customer == null)
+            {
+                throw new Exception("Customer not found!");
+            }
+			else if (customer.Status == (CustomerStatus)2)
+			{
+				throw new Exception("Customer already deleted!");
+			}
+			customer.Status = (CustomerStatus)2;
+			customer.DeletedAt = DateTime.UtcNow;
+			return await _context.SaveChangesAsync();
+		}
+
+    }
 	
 	
 }

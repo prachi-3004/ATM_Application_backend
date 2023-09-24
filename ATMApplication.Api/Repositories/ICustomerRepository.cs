@@ -6,20 +6,17 @@ namespace ATMApplication.Api.Repositories
 	public interface ICustomerRepository
 	{
 		
-		
-		Task<Customer> GetCustomerById(int id);
-		
+		Task<Customer> GetCustomerByID(int id);
 		
 		Task<Customer> GetCustomerByEmail(string email);
 		
+		Task<int> CreateCustomer(Customer customer);
 		
-		Task<Customer> CreateCustomer(Customer customer);
-		
-		
-		Task<Customer> ValidateCustomer(string email, string password);
-		
-		
-	}
-	
-	
+		Task<List<Customer>> GetAllCustomers();
+
+        public Task<int> UpdateCustomer(Customer customer);
+
+		public Task<int> DeleteCustomer(int id);
+    }
+
 }

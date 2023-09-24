@@ -14,7 +14,7 @@ namespace ATMApplication.Api.Controllers
 {
 	
 	[ApiController]
-	[Route("api/customers")]
+	[Route("api/[controller]")]
 	public class CustomerController: ControllerBase
 	{
 		
@@ -24,47 +24,115 @@ namespace ATMApplication.Api.Controllers
 		
 		private readonly IAuthenticationService _authenticationService;
 		
-		private readonly IMapper _mapper;
-		
-		public CustomerController(ICustomerService customerService, ICustomerRepository customerRepository, IAuthenticationService authenticationService , IMapper mapper)
+		public CustomerController(ICustomerService customerService, ICustomerRepository customerRepository, IAuthenticationService authenticationService)
 		{
 			_customerService = customerService;
 			_customerRepository = customerRepository;
 			_authenticationService = authenticationService;
-			_mapper = mapper;
 		}
-		
 		
 		[Authorize(Roles = "ADMIN")]
+		[Route("Add")]
 		[HttpPost]
-		public async Task<ActionResult<Customer>> CreateCustomer(CreateCustomerDto customerDto)
+		public async Task<ActionResult<int>> CreateCustomer(CustomerDto customerDto)
 		{
-			Customer customer = _mapper.Map<Customer>(customerDto);
-			var result = await _customerRepository.CreateCustomer(customer);
-			return Ok(result);
+			try
+			{
+				var customer = await _customerService.CreateCustomer(customerDto);
+				return Ok(customer);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
-		
-		
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+		[Authorize(Roles = "ADMIN")]
+        [Route("GetAll")]
+        [HttpGet]
+        public async Task<ActionResult<List<Customer>>> GetAllCustomers()
+        {
+            try
+            {
+                var customers = await _customerService.GetAllCustomers();
+                if (customers.Count == 0)
+                {
+                    return NoContent();
+                }
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 		[Authorize(Roles = "ADMIN,customer")]
+		[Route("GetByEmail/{email}")]
 		[HttpGet]
 		public async Task<IActionResult> GetCustomerByEmail(string email)
 		{
-			var tokenClaims = _authenticationService.GetTokenClaims();
-			return Ok(await _customerService.GetCustomerByEmail(email, tokenClaims));
-			// return Ok(await _customerService.GetCustomerByEmail(email, sub));
+			try
+			{
+                var tokenClaims = _authenticationService.GetTokenClaims();
+                return Ok(await _customerService.GetCustomerByEmail(email, tokenClaims));
+            }
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
 		}
-		
-		
-		// [Authorize(Roles = "ADMIN,customer")]
-		// [HttpGet]
-		// public async Task<IActionResult> GetCustomerById(int id)
-		// {
-		// 	return Ok(await _customerRepository.GetCustomerById(id));
-		// }
-		
-		
-	}
+
+        [Authorize(Roles = "ADMIN,customer")]
+        [Route("GetByID/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerByID(int id)
+        {
+            try
+            {
+                var tokenClaims = _authenticationService.GetTokenClaims();
+                return Ok(await _customerService.GetCustomerByID(id, tokenClaims));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "ADMIN,customer")]
+        [Route("UpdateDetails/{email}")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCustomer(string email, CustomerDto customerDto)
+        {
+            try
+            {
+                var tokenClaims = _authenticationService.GetTokenClaims();
+                var result = await _customerService.UpdateCustomer(email, customerDto, tokenClaims);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "ADMIN")]
+        [Route("Delete/{email}")]
+        [HttpPut]
+        public async Task<IActionResult> DeleteCustomer(string email)
+        {
+            try
+            {
+                var result = await _customerService.DeleteCustomer(email);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+    }
 	
 	
 	

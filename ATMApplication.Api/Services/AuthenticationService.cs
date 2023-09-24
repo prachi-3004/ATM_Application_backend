@@ -4,6 +4,7 @@ using System.Text;
 using ATMApplication.Api.Dto;
 using ATMApplication.Api.Models;
 using ATMApplication.Api.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ATMApplication.Api.Services
@@ -17,17 +18,17 @@ namespace ATMApplication.Api.Services
 		
 		private readonly IEmployeeRepository _employeeRepository;
 		private readonly ICustomerRepository _customerRepository;
+        private readonly PasswordHasher<Customer> _passwordHasher;
+        private readonly IConfiguration _configuration;
 		
-		private readonly IConfiguration _configuration;
 		
-		
-		public AuthenticationService(IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, IConfiguration configuration)
+		public AuthenticationService(IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, PasswordHasher<Customer> passwordHasher, IConfiguration configuration)
 		{
 			_employeeRepository = employeeRepository;
 			_customerRepository = customerRepository;
 			_configuration = configuration;
+			_passwordHasher = passwordHasher;
 		}
-		
 		
 		private string GenerateToken(List<Claim> claimsForToken)
 		{
@@ -51,12 +52,8 @@ namespace ATMApplication.Api.Services
 			return tokenToReturn;
 		}
 		
-		
-		
-		
 		public async Task<string> LoginEmployee(string email, string password)
 		{
-			
 			Employee employee = await _employeeRepository.ValidateEmployee(email, password);
 			
 			var claimsForToken = new List<Claim>
@@ -70,16 +67,17 @@ namespace ATMApplication.Api.Services
 			
 			var token = GenerateToken(claimsForToken);
 			
-			return token;
-			
+			return token;	
 		}
-		
 		
 		public async Task<string> LoginCustomer(string email, string password)
 		{
-			
-			Customer customer = await _customerRepository.ValidateCustomer(email, password);
-			var claimsForToken = new List<Claim>
+            Customer? customer = await _customerRepository.GetCustomerByEmail(email);
+            if (customer == null || _passwordHasher.VerifyHashedPassword(customer, customer.Password, password) == 0)
+            {
+                throw new Exception($"Invalid Email or Password");
+            }
+            var claimsForToken = new List<Claim>
 			{
 				new Claim("userId", customer.Id.ToString()),
 				new Claim("userEmail", customer.Email),
@@ -89,11 +87,9 @@ namespace ATMApplication.Api.Services
 			};
 			
 			var token = GenerateToken(claimsForToken);
-			
+
 			return token;
-			
 		}
-		
 		
 		public TokenClaims GetTokenClaims()
 		{
@@ -116,9 +112,7 @@ namespace ATMApplication.Api.Services
 			}
 			
 			return res;
-			
 		}
-		
 		
 	}
 	

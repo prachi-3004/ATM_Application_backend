@@ -9,7 +9,7 @@ namespace ATMApplication.Api.Profiles
 		
 		public CustomerProfile() 
 		{
-			CreateMap<CreateCustomerDto, Customer>();
+			CreateMap<CustomerDto, Customer>();
 		}
 		
 	}

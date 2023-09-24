@@ -8,5 +8,4 @@ namespace ATMApplication.Api.Enums
 		Deleted = 2
 	}
 
-	
 }

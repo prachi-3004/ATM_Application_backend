@@ -19,6 +19,7 @@ namespace ATMApplication.Api.Repositories
 		
 		public Task<int> DecreaseBalance(int accountId, int decrementAmount);
 		
+		public Task<int> DisableAccount(int accountId);
 		
 	}
 	

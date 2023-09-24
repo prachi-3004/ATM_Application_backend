@@ -1,6 +1,9 @@
 ﻿using ATMApplication.Api.Dto;
 using ATMApplication.Api.Models;
 using ATMApplication.Api.Repositories;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ATMApplication.Api.Services
 {
@@ -8,40 +11,84 @@ namespace ATMApplication.Api.Services
 	{
 		
 		private readonly ICustomerRepository _customerRepository;
-		
-		
-		public CustomerService(ICustomerRepository customerRepository)
+		private readonly IAccountRepository _accountRepository;
+        private readonly IMapper _mapper;
+		private readonly PasswordHasher<Customer> _passwordHasher;
+
+        public CustomerService(ICustomerRepository customerRepository, IMapper mapper, IAccountRepository accountRepository)
+        {
+            _customerRepository = customerRepository;
+            _mapper = mapper;
+            _passwordHasher = new PasswordHasher<Customer>();
+            _accountRepository = accountRepository;
+        }
+
+        public async Task<int> CreateCustomer(CustomerDto customerDto)
 		{
-			_customerRepository = customerRepository;
+			Customer customer = _mapper.Map<Customer>(customerDto);
+			customer.Password = _passwordHasher.HashPassword(customer, customer.Password);
+            return await _customerRepository.CreateCustomer(customer);
 		}
-		
-		
-		public async Task<Customer> CreateCustomer(Customer customer)
-		{
-			return await _customerRepository.CreateCustomer(customer);
-		}
-		
-		
 
 		public async Task<Customer> GetCustomerByEmail(string email, TokenClaims tokenClaims)
 		{
-			
 			if(email == tokenClaims.Email || tokenClaims.Role == "ADMIN")
 			{
 				return await _customerRepository.GetCustomerByEmail(email);
 			}
 			throw new Exception("Invalid Token");
-			
 		}
 
-		public async Task<Customer> GetCustomerById(int Id, TokenClaims tokenClaims)
+		public async Task<Customer> GetCustomerByID(int id, TokenClaims tokenClaims)
 		{
-			if(Id.ToString() == tokenClaims.UserId || tokenClaims.Role == "ADMIN")
+			if(id.ToString() == tokenClaims.UserId || tokenClaims.Role == "ADMIN")
 			{
-				return await _customerRepository.GetCustomerById(Id);
+				return await _customerRepository.GetCustomerByID(id);
 			}
 			throw new Exception("Invalid Token");
-			
 		}
-	}
+
+        public async Task<List<Customer>> GetAllCustomers()
+		{
+			return await _customerRepository.GetAllCustomers();
+		}
+
+		public async Task<int> UpdateCustomer(string email, CustomerDto customerDto, TokenClaims tokenClaims)
+		{
+			if(email == tokenClaims.Email)
+			{
+				Customer customer = await _customerRepository.GetCustomerByEmail(email);
+                Customer updated_customer = _mapper.Map<Customer>(customerDto);
+				updated_customer.Id = customer.Id;
+                updated_customer.Password = _passwordHasher.HashPassword(updated_customer, customer.Password);
+                return await _customerRepository.UpdateCustomer(updated_customer);
+			}
+			else if (tokenClaims.Role == "ADMIN")
+			{
+                Customer customer = await _customerRepository.GetCustomerByEmail(email);
+                Customer updated_customer = _mapper.Map<Customer>(customerDto);
+                updated_customer.Id = customer.Id;
+				updated_customer.GovernmentId = customer.GovernmentId;
+				updated_customer.Password = customer.Password;
+                return await _customerRepository.UpdateCustomer(updated_customer);
+            }
+			throw new Exception("Invalid Token");
+		}
+
+		public async Task<int> DeleteCustomer(string email)
+		{
+			Customer customer = await _customerRepository.GetCustomerByEmail(email);
+			var accounts = await _accountRepository.GetAccountsByCustomerId(customer.Id);
+			foreach (var account in accounts)
+			{
+				if (account.Balance == 0)
+				{
+					throw new Exception($"Account with Id: {account.Id} can't be disabled!");
+				}
+				await _accountRepository.DisableAccount(account.Id);
+			}
+			return await _customerRepository.DeleteCustomer(customer.Id);
+		}
+
+    }
 }
