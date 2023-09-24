@@ -20,14 +20,11 @@ namespace ATMApplication.Api.Controllers
 		
 		private readonly ICustomerService _customerService;
 		
-		private readonly ICustomerRepository _customerRepository;
-		
 		private readonly IAuthenticationService _authenticationService;
 		
-		public CustomerController(ICustomerService customerService, ICustomerRepository customerRepository, IAuthenticationService authenticationService)
+		public CustomerController(ICustomerService customerService, IAuthenticationService authenticationService)
 		{
 			_customerService = customerService;
-			_customerRepository = customerRepository;
 			_authenticationService = authenticationService;
 		}
 		
