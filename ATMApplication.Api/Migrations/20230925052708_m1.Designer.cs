@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ATMApplication.Api.Migrations
 {
     [DbContext(typeof(ATMContext))]
-    [Migration("20230925024558_m1")]
+    [Migration("20230925052708_m1")]
     partial class m1
     {
         /// <inheritdoc />
@@ -112,7 +112,7 @@ namespace ATMApplication.Api.Migrations
                             Address = "address",
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(6956),
+                            CreatedAt = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(877),
                             Email = "branch1@gmail.com",
                             Name = "branch1"
                         });
@@ -141,7 +141,7 @@ namespace ATMApplication.Api.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -248,8 +248,8 @@ namespace ATMApplication.Api.Migrations
                             BranchId = 1,
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7069),
-                            DateOfBirth = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7068),
+                            CreatedAt = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1017),
+                            DateOfBirth = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1016),
                             Email = "emp1@gmail.com",
                             GovernmentId = "123",
                             Name = "emp1",

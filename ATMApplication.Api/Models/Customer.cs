@@ -41,9 +41,9 @@ namespace ATMApplication.Api.Models
 		
 		
 		public DateTime? DeletedAt { get; set; }
-		
-		
-		public CustomerStatus Status { get; set; }
+
+
+		public CustomerStatus Status { get; set; } = CustomerStatus.Active;
 		
 		
 		[MinLength(1)]
@@ -61,8 +61,7 @@ namespace ATMApplication.Api.Models
 		public string City { get; set; }
 		
 		
-		[Required]
-		public DateTime DateOfBirth { get; set; }
+		public DateTime? DateOfBirth { get; set; }
 		
 		
 		public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
@@ -77,9 +76,7 @@ namespace ATMApplication.Api.Models
 			string password, 
 			string name, 
 			string address, 
-			string city,
-			CustomerStatus status,
-			DateTime dateOfBirth
+			string city
 		)
 		{
 			GovernmentId = governmentId;
@@ -89,8 +86,6 @@ namespace ATMApplication.Api.Models
 			Name = name;
 			Address = address;
 			City = city;
-			Status = status;
-			DateOfBirth = dateOfBirth;
 		}
 		
 		

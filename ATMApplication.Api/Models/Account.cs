@@ -16,9 +16,9 @@ namespace ATMApplication.Api.Models
 		
 		public AccountStatus Status { get; set; }
 		
-		[ForeignKey("CustomerId")]
-		public virtual Customer Customer { get; set; }
+		public virtual Customer? Customer { get; set; }
 
+		[ForeignKey("CustomerId")]
 		public int CustomerId { get; set; }
 		
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

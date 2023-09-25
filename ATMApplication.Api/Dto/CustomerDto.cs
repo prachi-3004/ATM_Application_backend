@@ -21,8 +21,6 @@ namespace ATMApplication.Api.Dto
 		[Required]
 		public string Password { get; set; }
 		
-		public CustomerStatus Status { get; set; }
-		
 		[Required]
 		public string Name { get; set; }
 		
@@ -32,9 +30,6 @@ namespace ATMApplication.Api.Dto
 		[Required]
 		public string City { get; set; }
 		
-		[Required]
-		public DateTime DateOfBirth { get; set; }
-		
 		public CustomerDto
 		(
 			string governmentId, 
@@ -43,9 +38,7 @@ namespace ATMApplication.Api.Dto
 			string password, 
 			string name, 
 			string address, 
-			string city,
-			CustomerStatus status,
-			DateTime dateOfBirth
+			string city
 		)
 		{
 			GovernmentId = governmentId;
@@ -55,8 +48,6 @@ namespace ATMApplication.Api.Dto
 			Name = name;
 			Address = address;
 			City = city;
-			Status = status;
-			DateOfBirth = dateOfBirth;
 		}
 		
 		
