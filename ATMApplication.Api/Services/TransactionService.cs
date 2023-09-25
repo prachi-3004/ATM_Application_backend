@@ -51,7 +51,7 @@ namespace ATMApplication.Api.Services
                 TransactionStatus.FAILED,
                 (int)transactionDto.SenderId,
                 transactionDto.Amount,
-                null
+                ""
             );
 
             Transaction creditTransaction = new Transaction
@@ -61,7 +61,7 @@ namespace ATMApplication.Api.Services
                 TransactionStatus.FAILED,
                 (int)transactionDto.RecipientId,
                 transactionDto.Amount,
-                null
+                ""
             );
             
             await _transactionRepository.AddTransaction(debitTransaction);
@@ -85,7 +85,7 @@ namespace ATMApplication.Api.Services
                 TransactionStatus.FAILED,
                 (int)transactionDto.RecipientId,
                 transactionDto.Amount,
-                null
+                ""
             );
 
             await _transactionRepository.AddTransaction(transaction);
@@ -103,7 +103,7 @@ namespace ATMApplication.Api.Services
                 TransactionStatus.FAILED,
                 (int)transactionDto.SenderId,
                 transactionDto.Amount,
-                null
+                ""
             );
 
             await _transactionRepository.AddTransaction(transaction);
