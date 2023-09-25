@@ -105,5 +105,22 @@ namespace ATMApplication.Api.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        [Route("DisableAccount/{id}")]
+        [Authorize(Roles = "ADMIN")]
+        [HttpPut]
+        public async Task<ActionResult<int>> DisableAccount(int id)
+        {
+            try
+            {
+                var result = await _accountService.DisableAccount(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
     }
 }

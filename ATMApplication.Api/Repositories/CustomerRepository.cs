@@ -34,7 +34,7 @@ namespace ATMApplication.Api.Repositories
 		{
 			Customer? customer =  await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
 			
-			if(customer == null)
+			if(customer == null || customer.Status != CustomerStatus.Active)
 			{
 				throw new Exception($"Customer with Id: {id} not Found");
 			}
@@ -46,7 +46,7 @@ namespace ATMApplication.Api.Repositories
 		{
 			Customer? customer =  await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
 			
-			if(customer == null)
+			if(customer == null || customer.Status != CustomerStatus.Active)
 			{
 				throw new Exception($"Customer with Email: {email} not Found");
 			}
@@ -63,11 +63,7 @@ namespace ATMApplication.Api.Repositories
 		{
 			try
 			{
-                var customer = await _context.Customers.Where(c => c.Id == updated_customer.Id).FirstOrDefaultAsync();
-                if (customer == null)
-                {
-                    throw new Exception($"Customer with Email: {updated_customer.Email} not Found");
-                }
+                var customer = await GetCustomerByID(updated_customer.Id);
 				customer.GovernmentId = updated_customer.GovernmentId;
 				customer.Email = updated_customer.Email;
 				customer.ContactNumber = updated_customer.ContactNumber;
@@ -86,16 +82,8 @@ namespace ATMApplication.Api.Repositories
 
 		public async Task<int> DeleteCustomer(int id)
 		{
-			var customer = await _context.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
-            if (customer == null)
-            {
-                throw new Exception("Customer not found!");
-            }
-			else if (customer.Status == (CustomerStatus)2)
-			{
-				throw new Exception("Customer already deleted!");
-			}
-			customer.Status = (CustomerStatus)2;
+			var customer = await GetCustomerByID(id);
+			customer.Status = CustomerStatus.Deleted;
 			customer.DeletedAt = DateTime.UtcNow;
 			return await _context.SaveChangesAsync();
 		}

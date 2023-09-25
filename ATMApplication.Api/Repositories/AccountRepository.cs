@@ -33,7 +33,7 @@ namespace ATMApplication.Api.Repositories
 		{
 			Account? account =  await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
 			
-			if(account == null)
+			if(account == null || account.Status != AccountStatus.ACTIVE)
 			{
 				throw new Exception($"Account with Id: {id} not found");
 			}

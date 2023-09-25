@@ -1,6 +1,7 @@
 ﻿using ATMApplication.Api.Dto;
 using ATMApplication.Api.Models;
 using ATMApplication.Api.Repositories;
+using ATMApplication.Api.Enums;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,15 @@ namespace ATMApplication.Api.Services
 
         public async Task<List<Customer>> GetAllCustomers()
 		{
-			return await _customerRepository.GetAllCustomers();
+			List<Customer> customers = new List<Customer>();
+			foreach (Customer customer in await _customerRepository.GetAllCustomers())
+			{
+				if(customer.Status == CustomerStatus.Active)
+				{
+					customers.Add(customer);
+				}
+			}
+			return customers;
 		}
 
 		public async Task<int> UpdateCustomer(string email, CustomerDto customerDto, TokenClaims tokenClaims)

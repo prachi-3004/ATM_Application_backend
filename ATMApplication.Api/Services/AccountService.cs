@@ -37,14 +37,30 @@ namespace ATMApplication.Api.Services
         {
             if (id.ToString() == tokenClaims.UserId || tokenClaims.Role == "ADMIN")
             {
-                return await _accountRepository.GetAccountsByCustomerID(id);
+                List<Account> accounts = new List<Account>();
+                foreach(Account account in await _accountRepository.GetAccountsByCustomerID(id))
+                {
+                    if(account.Status == AccountStatus.ACTIVE)
+                    {
+                        accounts.Add(account);
+                    }
+                }
+                return accounts;
             }
             throw new Exception("Invalid token!");
         }
 
         public async Task<List<Account>> GetAllAccounts()
         {
-            return await _accountRepository.GetAllAccounts();
+            List<Account> accounts = new List<Account>();
+            foreach (Account account in await _accountRepository.GetAllAccounts())
+            {
+                if (account.Status == AccountStatus.ACTIVE)
+                {
+                    accounts.Add(account);
+                }
+            }
+            return accounts;
         }
 
         public async Task<int> DisableAccount(int id)
