@@ -1,23 +1,22 @@
 ﻿using ATMApplication.Api.Dto;
-using ATMApplication.Api.Models;
 using ATMApplication.Api.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ATMApplication.Api.Models;
 
 namespace ATMApplication.Api.Controllers
 {
-	
-	[ApiController]
-	[Route("api/[controller]")]
-	class TransactionController : ControllerBase
-	{
-		
-		private readonly ITransactionService _transactionService;
-		
-		public TransactionController(ITransactionService transactionService)
-		{
-			_transactionService = transactionService;
-		}
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TransactionController : ControllerBase
+    {
+        private readonly ITransactionService _transactionService;
+
+        public TransactionController(ITransactionService transactionService)
+        {
+            _transactionService = transactionService;
+        }
 
         [Route("Add")]
         [Authorize(Roles = "customer")]
@@ -50,10 +49,5 @@ namespace ATMApplication.Api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
     }
-	
-	
-	
-	
 }

@@ -2,30 +2,29 @@
 using ATMApplication.Api.Models;
 using ATMApplication.Api.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ATMApplication.Api.Controllers
 {
-	
-	[ApiController]
-	[Route("api/[controller]")]
-	class AccountController : ControllerBase
-	{
-		
-		private readonly IAccountService _accountService;
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private readonly IAccountService _accountService;
         private readonly IAuthenticationService _authenticationService;
-		
-		public AccountController(IAccountService accountService, IAuthenticationService authenticationService)
-		{
+
+        public AccountController(IAccountService accountService, IAuthenticationService authenticationService)
+        {
             _accountService = accountService;
             _authenticationService = authenticationService;
-		}
+        }
 
         [Route("AddAccount")]
-		[Authorize(Roles = "ADMIN")]
-		[HttpPost]
-		public async Task<ActionResult<Account>> AddAccount(AccountDto accountDto)
-		{
+        [Authorize(Roles = "ADMIN")]
+        [HttpPost]
+        public async Task<ActionResult<Account>> AddAccount(AccountDto accountDto)
+        {
             try
             {
                 var result = await _accountService.AddAccount(accountDto);
@@ -94,11 +93,11 @@ namespace ATMApplication.Api.Controllers
         [Route("ChangePin/{id}")]
         [Authorize(Roles = "customer")]
         [HttpPut]
-        public async Task<ActionResult<Account>> ChangePin(int id, [FromBody] string newPin, [FromBody] string oldPin)
+        public async Task<ActionResult<Account>> ChangePin(int id, [FromBody] PinChangeDto pinChangeDto)
         {
             try
             {
-                var result = await _accountService.ChangePin(id, newPin, oldPin);
+                var result = await _accountService.ChangePin(id, pinChangeDto.NewPin, pinChangeDto.OldPin);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -106,7 +105,5 @@ namespace ATMApplication.Api.Controllers
                 return Problem(ex.Message);
             }
         }
-
     }
-	
 }
