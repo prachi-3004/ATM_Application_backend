@@ -91,11 +91,12 @@ namespace ATMApplication.Api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Balance = table.Column<int>(type: "int", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pin = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Currency = table.Column<int>(type: "int", nullable: false)
                 },
@@ -139,12 +140,12 @@ namespace ATMApplication.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Branches",
                 columns: new[] { "Id", "Address", "City", "ContactNumber", "CreatedAt", "DeletedAt", "Email", "Name" },
-                values: new object[] { 1, "address", "city", "9999999999", new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(877), null, "branch1@gmail.com", "branch1" });
+                values: new object[] { 1, "address", "city", "9999999999", new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7400), null, "branch1@gmail.com", "branch1" });
 
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "Address", "BranchId", "City", "ContactNumber", "CreatedAt", "DateOfBirth", "DeletedAt", "Email", "GovernmentId", "Name", "Password", "Role", "Status" },
-                values: new object[] { 1, "address", 1, "city", "9999999999", new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1017), new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1016), null, "emp1@gmail.com", "123", "emp1", "emp1", "ADMIN", "Active" });
+                values: new object[] { 1, "address", 1, "city", "9999999999", new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7517), new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7516), null, "emp1@gmail.com", "123", "emp1", "emp1", "ADMIN", "Active" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_CustomerId",

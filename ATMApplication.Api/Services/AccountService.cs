@@ -1,6 +1,7 @@
 ﻿using ATMApplication.Api.Models;
 using ATMApplication.Api.Repositories;
 using ATMApplication.Api.Dto;
+using ATMApplication.Api.Enums;
 using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 
@@ -25,9 +26,11 @@ namespace ATMApplication.Api.Services
 
         public async Task<int> AddAccount(AccountDto accountDto)
         {
-            Account account = _mapper.Map<Account>(accountDto);
+            Account account = new Account(accountDto.CustomerId, accountDto.Balance, accountDto.Pin, (AccountType)Enum.Parse(typeof(AccountType), accountDto.Type));
             account.Pin = _passwordHasher.HashPassword(account, account.Pin);
-            return await _accountRepository.CreateAccount(account);
+            await _accountRepository.CreateAccount(account);
+            account.CardNumber = (1000000000000000 - account.Id).ToString();
+            return await _accountRepository.SaveDBChanges();
         }
 
         public async Task<List<Account>> GetAccountsByCustomerID(int id, TokenClaims tokenClaims)

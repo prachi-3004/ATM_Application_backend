@@ -16,16 +16,21 @@ namespace ATMApplication.Api.Dto
 		[Required]
 		public string Pin { get; set; }
 
+		[Required]
+		public string Type { get; set; }
+
 		public AccountDto
 		(
 			int customerId,
 			int balance,
-			string pin
+			string pin,
+			string type
 		)
 		{
 			CustomerId = customerId;
 			Balance = balance;
 			Pin = pin;
+			Type = type;
 		}
 		
 	}

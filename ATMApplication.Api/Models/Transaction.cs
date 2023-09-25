@@ -19,8 +19,8 @@ namespace ATMApplication.Api.Models
 
 		public TransactionStatus Status { get; set; } = TransactionStatus.SUCCESSFUL;
 		
+		public virtual Account? Account { get; set; }
 		[ForeignKey("AccountId")]
-		public virtual Account Account { get; set; }
 		public int AccountId { get; set; }
 
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

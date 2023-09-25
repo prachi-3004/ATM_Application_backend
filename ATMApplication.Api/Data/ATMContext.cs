@@ -50,6 +50,10 @@ namespace ATMApplication.Api.Data
 			.HasData(
 				new Employee(1, "123", "emp1@gmail.com", "9999999999", "emp1", "emp1", "address", "city", (EmployeeStatus)1, 1, DateTime.UtcNow));
 
+			//modelBuilder.Entity<Customer>()
+			//.HasData(
+			//	new Customer("1234", "cust1@gmail.com", "9999999999", "cust1", "cust1", "address", "city"));
+
 			base.OnModelCreating(modelBuilder);
 			
 		}

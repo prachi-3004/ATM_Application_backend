@@ -33,6 +33,9 @@ namespace ATMApplication.Api.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -49,7 +52,7 @@ namespace ATMApplication.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -109,7 +112,7 @@ namespace ATMApplication.Api.Migrations
                             Address = "address",
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(877),
+                            CreatedAt = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7400),
                             Email = "branch1@gmail.com",
                             Name = "branch1"
                         });
@@ -245,8 +248,8 @@ namespace ATMApplication.Api.Migrations
                             BranchId = 1,
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1017),
-                            DateOfBirth = new DateTime(2023, 9, 25, 5, 27, 8, 500, DateTimeKind.Utc).AddTicks(1016),
+                            CreatedAt = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7517),
+                            DateOfBirth = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7516),
                             Email = "emp1@gmail.com",
                             GovernmentId = "123",
                             Name = "emp1",

@@ -21,7 +21,6 @@ namespace ATMApplication.Api.Models
 		
 		private string _email = null!;
 		
-		
 		[Required]
 		[EmailAddress]
 		public string Email

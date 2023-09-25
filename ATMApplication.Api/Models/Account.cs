@@ -28,7 +28,9 @@ namespace ATMApplication.Api.Models
 		[Required]
 		public int Balance { get; set; }
 
-		[Required]
+		public string? CardNumber { get; set; }
+
+        [Required]
 		public string Pin { get; set; }
 
 		public CurrencyType Currency { get; set; } = CurrencyType.INR;
