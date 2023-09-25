@@ -5,16 +5,16 @@ namespace ATMApplication.Api.Repositories
 {
 	public interface ITransactionRepository
 	{
-		
-		public Task<Transaction> Deposit(int accountId, int amount);
-		
-		public Task<Transaction> Withdraw(int accountId, int amount);
-		
-		public Task<List<Transaction>> Transfer(int fromAccountId, int toAccountId, int amount);
-		
-		
-		public void ChangeTransactionStatus(int transactionId, TransactionStatus transactionStatus);
-		
-		
-	}
+
+		public Task<int> AddTransaction(Transaction transaction);
+
+		public Task<List<Transaction>> GetAllTransactions();
+
+        public Task<Transaction> GetTransactionByID(int id);
+
+        public Task<List<Transaction>> GetTransactionsByAccount(int id);
+
+        public Task<int> SaveDBChanges();
+
+    }
 }

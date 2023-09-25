@@ -9,51 +9,51 @@ using Microsoft.AspNetCore.Mvc;
 namespace ATMApplication.Api.Controllers
 {
 	
-	[Route("api/transactions")]
+	[Route("api/[controller]")]
 	[ApiController]
 	class TransactionController : ControllerBase
 	{
 		
-		public ITransactionService _transactionService;
-		public IMapper _mapper;
-		
+		private readonly ITransactionService _transactionService;
 		
 		public TransactionController(ITransactionService transactionService)
 		{
 			_transactionService = transactionService;
 		}
-		
-		
-	// 	[Authorize(Roles = "customer")]
-	// 	[HttpPost("deposit")]
-	// 	public async Task<ActionResult<Transaction>> Deposit()
-	// 	{
-			
-			
-			
-	// 	}
-		
-		
-	// 	[Authorize(Roles = "customer")]
-	// 	[HttpPost("withdraw")]
-	// 	public async Task<ActionResult<Transaction>> Withdraw()
-	// 	{
-			
-			
-			
-	// 	}
-		
-		
-	// 	[Authorize(Roles = "customer")]
-	// 	[HttpPost("transfer")]
-	// 	public async Task<ActionResult<Transaction>> Transfer()
-	// 	{
-			
-			
-			
-	// 	}
-		
-	}
+
+        [Route("Add")]
+        [Authorize(Roles = "customer")]
+        [HttpPost]
+        public async Task<IActionResult> AddTransaction(TransactionDto transactionDto)
+        {
+            try
+            {
+                var result = await _transactionService.ProcessTransaction(transactionDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [Route("MiniStatement/{id}")]
+        [Authorize(Roles = "ADMIN,customer")]
+        [HttpGet]
+        public async Task<ActionResult<List<Transaction>>> MiniStatement(int id)
+        {
+            try
+            {
+                var result = await _transactionService.GetTransactionsByAccount(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+    }
 	
 	
 	

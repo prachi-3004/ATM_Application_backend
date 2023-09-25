@@ -3,32 +3,31 @@ using ATMApplication.Api.Enums;
 
 namespace ATMApplication.Api.Dto
 {
-	public partial class CreateAccountDto
+
+	public partial class AccountDto
 	{
-		
 		
 		[Required]
 		public int CustomerId { get; set; }
 		
-		
-		
 		[Required]
-		public int Amount { get; set; }
-		
-		
-		
-		public CreateAccountDto
+		public int Balance { get; set; }
+
+		[Required]
+		public string Pin { get; set; }
+
+		public AccountDto
 		(
 			int customerId,
-			int amount
+			int balance,
+			string pin
 		)
 		{
 			CustomerId = customerId;
-			Amount = amount;
+			Balance = balance;
+			Pin = pin;
 		}
 		
 	}
-	
-	
 	
 }

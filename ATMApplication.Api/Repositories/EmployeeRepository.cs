@@ -1,4 +1,4 @@
-using ATMApplication.Api.DBContexts;
+using ATMApplication.Api.Data;
 using ATMApplication.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -41,12 +41,10 @@ namespace ATMApplication.Api.Repositories
 			}
 			
 			return employee;
-			
 		}
 		
 		public async Task<Employee> GetEmployeeByEmail(string email)
 		{
-			
 			Employee? employee =  await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
 			
 			if(employee == null)
@@ -55,28 +53,27 @@ namespace ATMApplication.Api.Repositories
 			}
 			
 			return employee;
-			
 		}
 		
-		private bool IsPasswordCorrect(Employee employee, string password)
-		{
-			return employee.Password == password;
-		}
+		//private bool IsPasswordCorrect(Employee employee, string password)
+		//{
+		//	return employee.Password == password;
+		//}
 		
 		
-		public async Task<Employee> ValidateEmployee(string email, string password)
-		{
+		//public async Task<Employee> ValidateEmployee(string email, string password)
+		//{
 			
-			Employee? employee =  await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+		//	Employee? employee =  await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
 			
-			if(employee == null || !IsPasswordCorrect(employee, password))
-			{
-				throw new Exception($"Invalid Email or Password");
-			}
+		//	if(employee == null || !IsPasswordCorrect(employee, password))
+		//	{
+		//		throw new Exception($"Invalid Email or Password");
+		//	}
 			
-			return employee;
+		//	return employee;
 			
-		}
+		//}
 		
 		
 	}

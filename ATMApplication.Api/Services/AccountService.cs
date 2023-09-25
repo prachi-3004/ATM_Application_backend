@@ -1,6 +1,74 @@
-﻿namespace ATMApplication.Api.Services
+﻿using ATMApplication.Api.Models;
+using ATMApplication.Api.Repositories;
+using ATMApplication.Api.Dto;
+using Microsoft.AspNetCore.Identity;
+using AutoMapper;
+
+namespace ATMApplication.Api.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly IAccountRepository _accountRepository;
+        private readonly ITransactionRepository _transactionRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly PasswordHasher<Account> _passwordHasher;
+        private readonly IMapper _mapper;
+
+        public AccountService(IAccountRepository accountRepository, ITransactionRepository transactionRepository, ICustomerRepository customerRepository, IMapper mapper)
+        {
+            _accountRepository = accountRepository;
+            _transactionRepository = transactionRepository;
+            _customerRepository = customerRepository;
+            _passwordHasher = new PasswordHasher<Account>();
+            _mapper = mapper;
+        }
+
+        public async Task<int> AddAccount(AccountDto accountDto)
+        {
+            Account account = _mapper.Map<Account>(accountDto);
+            account.Pin = _passwordHasher.HashPassword(account, account.Pin);
+            return await _accountRepository.CreateAccount(account);
+        }
+
+        public async Task<List<Account>> GetAccountsByCustomerID(int id, TokenClaims tokenClaims)
+        {
+            if (id.ToString() == tokenClaims.UserId || tokenClaims.Role == "ADMIN")
+            {
+                return await _accountRepository.GetAccountsByCustomerID(id);
+            }
+            throw new Exception("Invalid token!");
+        }
+
+        public async Task<List<Account>> GetAllAccounts()
+        {
+            return await _accountRepository.GetAllAccounts();
+        }
+
+        public async Task<int> DisableAccount(int id)
+        {
+            return await _accountRepository.DisableAccount(id);
+        }
+
+        public async Task<Account> GetAccountByID(int id, TokenClaims tokenClaims)
+        {
+            var account = await _accountRepository.GetAccountByID(id);
+            if (account.CustomerId.ToString() == tokenClaims.UserId || tokenClaims.Role == "ADMIN")
+            {
+                return account;
+            }
+            throw new Exception("Invalid token!");
+        }
+
+        public async Task<int> ChangePin(int id, string newPin, string oldPin)
+        {
+            var account = await _accountRepository.GetAccountByID(id);
+            if (_passwordHasher.VerifyHashedPassword(account, account.Pin, oldPin)==0)
+            {
+                throw new Exception("Invalid PIN!");
+            }
+            account.Pin = newPin;
+            account.Pin = _passwordHasher.HashPassword(account, account.Pin);
+            return await _accountRepository.SaveDBChanges();
+        }
     }
 }

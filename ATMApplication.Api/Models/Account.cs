@@ -12,12 +12,13 @@ namespace ATMApplication.Api.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 		
-		public AccountType Type { get; set; } = AccountType.Savings;
+		public AccountType Type { get; set; }
 		
-		public AccountStatus Status { get; set; } = AccountStatus.ACTIVE;
+		public AccountStatus Status { get; set; }
 		
 		[ForeignKey("CustomerId")]
-		public virtual Customer Customer { get; set; } = null!;
+		public virtual Customer Customer { get; set; }
+
 		public int CustomerId { get; set; }
 		
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -26,26 +27,32 @@ namespace ATMApplication.Api.Models
 		
 		[Required]
 		public int Balance { get; set; }
-		
+
+		[Required]
+		public string Pin { get; set; }
+
 		public CurrencyType Currency { get; set; } = CurrencyType.INR;
 		
 		public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 		
-		public virtual ICollection<Card> Cards { get; set; } = new List<Card>();
-		
 		public Account
 		(
 			int customerId,
-			int amount
-		)
+			int balance,
+			string pin,
+			AccountType type=AccountType.Savings,
+			AccountStatus status=AccountStatus.ACTIVE,
+			CurrencyType currency=CurrencyType.INR
+        )
 		{
 			CustomerId = customerId;
-			Balance = amount;
+			Balance = balance;
+			Pin = pin;
+			Type = type;
+			Status = status;
+			Currency = currency;
 		}
 		
-		
 	}
-	
-	
-	
+
 }

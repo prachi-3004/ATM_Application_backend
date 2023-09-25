@@ -15,8 +15,8 @@ namespace ATMApplication.Api.Enums
 		
 		WITHDRAW = 0,
 		DEPOSIT = 1,
-		TRANSFERCREDIT = 2,
-		TRANSFERDEBIT = 3
+		TRANSFER_CREDIT = 2,
+		TRANSFER_DEBIT = 3
 		
 		
 	}

@@ -1,4 +1,4 @@
-﻿using ATMApplication.Api.DBContexts;
+﻿using ATMApplication.Api.Data;
 using ATMApplication.Api.Models;
 
 namespace ATMApplication.Api.Repositories

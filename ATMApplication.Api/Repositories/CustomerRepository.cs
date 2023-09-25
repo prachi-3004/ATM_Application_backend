@@ -1,4 +1,4 @@
-using ATMApplication.Api.DBContexts;
+using ATMApplication.Api.Data;
 using ATMApplication.Api.Models;
 using ATMApplication.Api.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace ATMApplication.Api.Repositories
 			}
 			catch (Exception ex)
 			{
-				throw new Exception("Failed to Insert Customer", ex);
+				throw new Exception("Failed to add customer", ex);
 			}
 		}
 		

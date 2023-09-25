@@ -19,7 +19,6 @@ namespace ATMApplication.Api.Controllers
 	{
 		
 		private readonly ICustomerService _customerService;
-		
 		private readonly IAuthenticationService _authenticationService;
 		
 		public CustomerController(ICustomerService customerService, IAuthenticationService authenticationService)

@@ -1,5 +1,5 @@
 using System.Text;
-using ATMApplication.Api.DBContexts;
+using ATMApplication.Api.Data;
 using ATMApplication.Api.Enums;
 using ATMApplication.Api.Repositories;
 using ATMApplication.Api.Services;
@@ -24,19 +24,18 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
-builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
-
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
-builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+
+builder.Services.AddScoped<ICurrencyService>(provider => new CurrencyService("./Data/currency.json"));
 
 builder.Services.AddHttpContextAccessor();
 

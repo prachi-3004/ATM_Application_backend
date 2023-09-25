@@ -1,19 +1,19 @@
 using ATMApplication.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace ATMApplication.Api.DBContexts
+namespace ATMApplication.Api.Data
 {
 
 	public class ATMContext : DbContext
 	{
 
-		public ATMContext()
-		{
-		}
-		
-		public ATMContext(DbContextOptions<ATMContext> options)
+        private readonly IConfiguration _configuration;
+
+		public ATMContext(DbContextOptions<ATMContext> options, IConfiguration configuration)
 		: base(options)
 		{
+			_configuration = configuration;
 		}
 		
 		public DbSet<Customer> Customers { get; set; }
@@ -21,15 +21,17 @@ namespace ATMApplication.Api.DBContexts
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Branch> Branches { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
-		
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+			=> optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Ignore<Currency>();
+
 			modelBuilder.Entity<Customer>()
 			.Property(e => e.Status)
 			.HasConversion<string>();
-			
-			base.OnModelCreating(modelBuilder);
-			
 			
 			modelBuilder.Entity<Employee>()
 			.Property(e => e.Status)
@@ -39,9 +41,7 @@ namespace ATMApplication.Api.DBContexts
 			.Property(e => e.Role)
 			.HasConversion<string>();
 			
-			
 			base.OnModelCreating(modelBuilder);
-			
 			
 		}
 

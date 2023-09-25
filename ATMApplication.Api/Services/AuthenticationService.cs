@@ -10,7 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace ATMApplication.Api.Services
 {
 	
-	
 	public class AuthenticationService : IAuthenticationService
 	{
 		
@@ -20,7 +19,6 @@ namespace ATMApplication.Api.Services
 		private readonly ICustomerRepository _customerRepository;
         private readonly PasswordHasher<Customer> _passwordHasher;
         private readonly IConfiguration _configuration;
-		
 		
 		public AuthenticationService(IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, IConfiguration configuration)
 		{
@@ -54,9 +52,12 @@ namespace ATMApplication.Api.Services
 		
 		public async Task<string> LoginEmployee(string email, string password)
 		{
-			Employee employee = await _employeeRepository.ValidateEmployee(email, password);
-			
-			var claimsForToken = new List<Claim>
+            Employee? employee = await _employeeRepository.GetEmployeeByEmail(email);
+            if (employee == null || password != employee.Password)
+            {
+                throw new Exception($"Invalid Email or Password");
+            }
+            var claimsForToken = new List<Claim>
 			{
 				new Claim("userId", employee.Id.ToString()),
 				new Claim("userEmail", employee.Email),

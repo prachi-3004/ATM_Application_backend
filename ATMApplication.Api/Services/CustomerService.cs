@@ -60,7 +60,7 @@ namespace ATMApplication.Api.Services
 				Customer customer = await _customerRepository.GetCustomerByEmail(email);
                 Customer updated_customer = _mapper.Map<Customer>(customerDto);
 				updated_customer.Id = customer.Id;
-                updated_customer.Password = _passwordHasher.HashPassword(updated_customer, customer.Password);
+                updated_customer.Password = _passwordHasher.HashPassword(updated_customer, updated_customer.Password);
                 return await _customerRepository.UpdateCustomer(updated_customer);
 			}
 			else if (tokenClaims.Role == "ADMIN")
@@ -78,7 +78,7 @@ namespace ATMApplication.Api.Services
 		public async Task<int> DeleteCustomer(string email)
 		{
 			Customer customer = await _customerRepository.GetCustomerByEmail(email);
-			var accounts = await _accountRepository.GetAccountsByCustomerId(customer.Id);
+			var accounts = await _accountRepository.GetAccountsByCustomerID(customer.Id);
 			foreach (var account in accounts)
 			{
 				if (account.Balance == 0)

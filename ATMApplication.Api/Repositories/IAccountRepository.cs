@@ -5,22 +5,22 @@ namespace ATMApplication.Api.Repositories
 	public interface IAccountRepository
 	{
 		
-		public Task<Account> CreateAccount(Account account);
+		public Task<int> CreateAccount(Account account);
 		
+		public Task<Account> GetAccountByID(int id);
 		
-		public Task<Account> GetAccountById(int id);
-		
-		
-		public Task<List<Account>> GetAccountsByCustomerId(int customerId);
-		
-		
-		public Task<int> IncreaseBalance(int accountId, int incrementAmount);
-		
-		
-		public Task<int> DecreaseBalance(int accountId, int decrementAmount);
+		public Task<List<Account>> GetAccountsByCustomerID(int customerId);
+
+		public Task<List<Account>> GetAllAccounts();
+
+		public Task<int> UpdateAccount(Account updated_account);
 		
 		public Task<int> DisableAccount(int accountId);
-		
-	}
+
+        public Task<int> ChangeBalance(int id, int amount);
+
+		public Task<int> SaveDBChanges();
+
+    }
 	
 }

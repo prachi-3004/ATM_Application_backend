@@ -14,41 +14,32 @@ namespace ATMApplication.Api.Models
 		
 		public int? TransactionId { get; set; }
 		
-		
 		[Required]
-		public TransactionType Type { get; set; }
-		
-		
-		public TransactionStatus Status { get; set; }
-		
+		public TransactionType? Type { get; set; }
+
+		public TransactionStatus Status { get; set; } = TransactionStatus.SUCCESSFUL;
 		
 		[ForeignKey("AccountId")]
-		public virtual Account Account { get; set; } = null!;
+		public virtual Account Account { get; set; }
 		public int AccountId { get; set; }
-		
-		
 
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-		
 		
 		[Required]
 		public int Amount { get; set; }
 		
-		
 		public CurrencyType Currency { get; set; } = CurrencyType.INR;
 		
-		
-		public string? Description { get; set; }
-		
+		public string Description { get; set; }
 		
 		public Transaction
 		(
-			TransactionType type,
+			int? transactionId,
+			TransactionType? type,
 			TransactionStatus status,
 			int accountId,
 			int amount,
-			int? transactionId,
-			string? description
+			string description = ""
 		)
 		{
 			TransactionId = transactionId;
@@ -59,8 +50,6 @@ namespace ATMApplication.Api.Models
 			Description = description;
 		}
 		
-		
 	}
-	
 	
 }
