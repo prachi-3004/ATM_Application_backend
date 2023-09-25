@@ -13,8 +13,8 @@ namespace ATMApplication.Api.Models
 		public int Id { get; set; }
 		
 		public AccountType Type { get; set; }
-		
-		public AccountStatus Status { get; set; }
+
+		public AccountStatus? Status { get; set; } = AccountStatus.ACTIVE;
 		
 		public virtual Customer? Customer { get; set; }
 
@@ -40,8 +40,7 @@ namespace ATMApplication.Api.Models
 			int customerId,
 			int balance,
 			string pin,
-			AccountType type=AccountType.Savings,
-			AccountStatus status=AccountStatus.ACTIVE,
+			AccountType type,
 			CurrencyType currency=CurrencyType.INR
         )
 		{
@@ -49,7 +48,6 @@ namespace ATMApplication.Api.Models
 			Balance = balance;
 			Pin = pin;
 			Type = type;
-			Status = status;
 			Currency = currency;
 		}
 		

@@ -4,8 +4,8 @@ namespace ATMApplication.Api.Enums
 	{
 		
 		Savings = 0,
-		Current = 1
-		
+		Current = 1,
+		Salaried = 2
 	}
 	
 	
