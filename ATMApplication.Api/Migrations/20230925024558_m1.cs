@@ -20,9 +20,9 @@ namespace ATMApplication.Api.Migrations
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -65,7 +65,7 @@ namespace ATMApplication.Api.Migrations
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BranchId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -97,17 +97,11 @@ namespace ATMApplication.Api.Migrations
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Balance = table.Column<int>(type: "int", nullable: false),
                     Pin = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Currency = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<int>(type: "int", nullable: true)
+                    Currency = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Accounts_Branches_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "Branches",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Accounts_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -142,10 +136,15 @@ namespace ATMApplication.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Accounts_BranchId",
-                table: "Accounts",
-                column: "BranchId");
+            migrationBuilder.InsertData(
+                table: "Branches",
+                columns: new[] { "Id", "Address", "City", "ContactNumber", "CreatedAt", "DeletedAt", "Email", "Name" },
+                values: new object[] { 1, "address", "city", "9999999999", new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(6956), null, "branch1@gmail.com", "branch1" });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "Address", "BranchId", "City", "ContactNumber", "CreatedAt", "DateOfBirth", "DeletedAt", "Email", "GovernmentId", "Name", "Password", "Role", "Status" },
+                values: new object[] { 1, "address", 1, "city", "9999999999", new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7069), new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7068), null, "emp1@gmail.com", "123", "emp1", "emp1", "ADMIN", "Active" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_CustomerId",
@@ -191,10 +190,10 @@ namespace ATMApplication.Api.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Branches");
 
             migrationBuilder.DropTable(
-                name: "Branches");
+                name: "Accounts");
 
             migrationBuilder.DropTable(
                 name: "Customers");

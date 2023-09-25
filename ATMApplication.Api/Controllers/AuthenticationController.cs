@@ -7,8 +7,8 @@ namespace ATMApplication.Api.Controllers
 {
 	
 	
-	[Route("api")]
 	[ApiController]
+	[Route("api/[controller]")]
 	public class AuthenticationController : ControllerBase
 	{
 		

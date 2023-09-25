@@ -35,7 +35,7 @@ namespace ATMApplication.Api.Models
 		public string Name { get; set; }
 		
 		
-		public string Address { get; set; }
+		public string? Address { get; set; }
 		
 		
 		[MinLength(1)]
@@ -43,7 +43,7 @@ namespace ATMApplication.Api.Models
 		public string City { get; set; }
 		
 		
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+		public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 		
 		
 		public DateTime? DeletedAt { get; set; }
@@ -51,13 +51,11 @@ namespace ATMApplication.Api.Models
 		
 		public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 		
-		public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
-		
-		
-		
+		//public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 		
 		public Branch
 		(
+			int id,
 			string email,
 			string contactNumber,
 			string name,
@@ -65,6 +63,7 @@ namespace ATMApplication.Api.Models
 			string city
 		)
 		{
+			Id = id;
 			Email = email;
 			ContactNumber = contactNumber;
 			Name = name;

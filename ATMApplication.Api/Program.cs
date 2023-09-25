@@ -1,5 +1,6 @@
 using System.Text;
 using ATMApplication.Api.Data;
+using ATMApplication.Api.Controllers;
 using ATMApplication.Api.Enums;
 using ATMApplication.Api.Repositories;
 using ATMApplication.Api.Services;
@@ -14,10 +15,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 builder.Services.AddDbContext<ATMContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

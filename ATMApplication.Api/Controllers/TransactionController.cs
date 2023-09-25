@@ -1,16 +1,14 @@
 ﻿using ATMApplication.Api.Dto;
 using ATMApplication.Api.Models;
-using ATMApplication.Api.Repositories;
 using ATMApplication.Api.Services;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ATMApplication.Api.Controllers
 {
 	
-	[Route("api/[controller]")]
 	[ApiController]
+	[Route("api/[controller]")]
 	class TransactionController : ControllerBase
 	{
 		

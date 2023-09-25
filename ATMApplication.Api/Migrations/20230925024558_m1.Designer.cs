@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ATMApplication.Api.Migrations
 {
     [DbContext(typeof(ATMContext))]
-    [Migration("20230925015016_m1")]
+    [Migration("20230925024558_m1")]
     partial class m1
     {
         /// <inheritdoc />
@@ -34,9 +34,6 @@ namespace ATMApplication.Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Balance")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -63,8 +60,6 @@ namespace ATMApplication.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchId");
-
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Accounts");
@@ -79,7 +74,6 @@ namespace ATMApplication.Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -90,7 +84,7 @@ namespace ATMApplication.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -110,6 +104,18 @@ namespace ATMApplication.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Branches");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "address",
+                            City = "city",
+                            ContactNumber = "9999999999",
+                            CreatedAt = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(6956),
+                            Email = "branch1@gmail.com",
+                            Name = "branch1"
+                        });
                 });
 
             modelBuilder.Entity("ATMApplication.Api.Models.Customer", b =>
@@ -192,7 +198,7 @@ namespace ATMApplication.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -233,6 +239,24 @@ namespace ATMApplication.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "address",
+                            BranchId = 1,
+                            City = "city",
+                            ContactNumber = "9999999999",
+                            CreatedAt = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7069),
+                            DateOfBirth = new DateTime(2023, 9, 25, 2, 45, 57, 975, DateTimeKind.Utc).AddTicks(7068),
+                            Email = "emp1@gmail.com",
+                            GovernmentId = "123",
+                            Name = "emp1",
+                            Password = "emp1",
+                            Role = "ADMIN",
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("ATMApplication.Api.Models.Transaction", b =>
@@ -277,10 +301,6 @@ namespace ATMApplication.Api.Migrations
 
             modelBuilder.Entity("ATMApplication.Api.Models.Account", b =>
                 {
-                    b.HasOne("ATMApplication.Api.Models.Branch", null)
-                        .WithMany("Accounts")
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("ATMApplication.Api.Models.Customer", "Customer")
                         .WithMany("Accounts")
                         .HasForeignKey("CustomerId")
@@ -319,8 +339,6 @@ namespace ATMApplication.Api.Migrations
 
             modelBuilder.Entity("ATMApplication.Api.Models.Branch", b =>
                 {
-                    b.Navigation("Accounts");
-
                     b.Navigation("Employees");
                 });
 

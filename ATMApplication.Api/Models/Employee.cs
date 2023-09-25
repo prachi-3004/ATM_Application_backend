@@ -47,8 +47,8 @@ namespace ATMApplication.Api.Models
 		public virtual Branch? Branch { get; set; }
 		public int BranchId { get; set; }
 		
-		
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+			
+		public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 		
 		
 		public DateTime? DeletedAt { get; set; }
@@ -78,6 +78,7 @@ namespace ATMApplication.Api.Models
 		
 		public Employee
 		(
+			int id,
 			string governmentId, 
 			string email, 
 			string contactNumber, 
@@ -90,6 +91,7 @@ namespace ATMApplication.Api.Models
 			DateTime dateOfBirth
 		)
 		{
+			Id = id;
 			GovernmentId = governmentId;
 			Email = email;
 			ContactNumber = contactNumber;
