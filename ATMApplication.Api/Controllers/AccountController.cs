@@ -106,10 +106,10 @@ namespace ATMApplication.Api.Controllers
             }
         }
 
-        [Route("DisableAccount/{id}")]
+        [Route("DisableAccount")]
         [Authorize(Roles = "ADMIN")]
-        [HttpPut]
-        public async Task<ActionResult<int>> DisableAccount(int id)
+        [HttpPatch]
+        public async Task<ActionResult<int>> DisableAccount([FromBody] int id)
         {
             try
             {
