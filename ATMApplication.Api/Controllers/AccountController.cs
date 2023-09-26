@@ -109,7 +109,9 @@ namespace ATMApplication.Api.Controllers
         [Route("DisableAccount")]
         [Authorize(Roles = "ADMIN")]
         [HttpPatch]
+
         public async Task<ActionResult<int>> DisableAccount(DeleteAccountDto account)
+
         {
             try
             {
