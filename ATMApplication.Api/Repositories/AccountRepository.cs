@@ -82,6 +82,10 @@ namespace ATMApplication.Api.Repositories
 		public async Task<int> DisableAccount(int accountId)
 		{
             Account account = await GetAccountByID(accountId);
+			if (account.Balance != 0)
+			{
+				throw new Exception("Account can't be deleted!");
+			}
 			account.Status = (AccountStatus)1;
 			account.DeletedAt = DateTime.UtcNow;
 			return await _context.SaveChangesAsync();
@@ -92,7 +96,7 @@ namespace ATMApplication.Api.Repositories
 			Account account = await GetAccountByID(id);
 			if (account.Balance + amount < 0)
 			{
-				throw new Exception("Insufficient Balance");
+				throw new Exception("Insufficient Balance!");
 			}
 			account.Balance += amount;
 			return await _context.SaveChangesAsync();
