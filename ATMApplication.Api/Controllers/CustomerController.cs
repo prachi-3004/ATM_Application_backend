@@ -113,9 +113,9 @@ namespace ATMApplication.Api.Controllers
         }
 
         [Authorize(Roles = "ADMIN")]
-        [Route("Delete/{email}")]
+        [Route("Delete")]
         [HttpPatch]
-        public async Task<IActionResult> DeleteCustomer(string email)
+        public async Task<IActionResult> DeleteCustomer([FromBody] string email)
         {
             try
             {
