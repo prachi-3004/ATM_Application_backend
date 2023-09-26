@@ -56,7 +56,7 @@ namespace ATMApplication.Api.Repositories
 		
 		public async Task<List<Customer>> GetAllCustomers()
 		{
-			return await _context.Customers.ToListAsync();
+			return await _context.Customers.Where(c => c.Status==CustomerStatus.Active).ToListAsync();
 		}
 		
 		public async Task<int> UpdateCustomer(Customer updated_customer)

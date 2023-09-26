@@ -45,7 +45,7 @@ namespace ATMApplication.Api.Repositories
 		{
 			try
 			{
-				List<Account> accounts = await _context.Accounts.Where(a => a.CustomerId == customerId).ToListAsync();
+				List<Account> accounts = await _context.Accounts.Where(a => a.CustomerId == customerId && a.Status == AccountStatus.ACTIVE).ToListAsync();
 				return accounts;
 			}
 			catch (Exception ex)
@@ -56,7 +56,7 @@ namespace ATMApplication.Api.Repositories
 
 		public async Task<List<Account>> GetAllAccounts()
 		{
-			return await _context.Accounts.ToListAsync();
+			return await _context.Accounts.Where(a => a.Status==AccountStatus.ACTIVE).ToListAsync();
 		}
 		
 		public async Task<int> UpdateAccount(Account updated_account)
@@ -90,6 +90,10 @@ namespace ATMApplication.Api.Repositories
 		public async Task<int> ChangeBalance(int id, int amount)
 		{
 			Account account = await GetAccountByID(id);
+			if (account.Balance + amount < 0)
+			{
+				throw new Exception("Insufficient Balance");
+			}
 			account.Balance += amount;
 			return await _context.SaveChangesAsync();
 		}

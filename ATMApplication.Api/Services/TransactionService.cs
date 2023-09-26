@@ -62,32 +62,26 @@ namespace ATMApplication.Api.Services
         {
             Transaction debitTransaction = new Transaction
             (
-                null,
                 TransactionType.TRANSFER_DEBIT,
-                TransactionStatus.FAILED,
                 (int)transactionDto.SenderId,
-                transactionDto.Amount,
-                ""
+                transactionDto.Amount
             );
 
             Transaction creditTransaction = new Transaction
             (
-                null,
                 TransactionType.TRANSFER_CREDIT,
-                TransactionStatus.FAILED,
                 (int)transactionDto.RecipientId,
-                transactionDto.Amount,
-                ""
+                transactionDto.Amount
             );
-            
+
+            await _accountRepository.ChangeBalance((int)transactionDto.SenderId, -1 * transactionDto.Amount);
+            await _accountRepository.ChangeBalance((int)transactionDto.RecipientId, transactionDto.Amount);
+
             await _transactionRepository.AddTransaction(debitTransaction);
             await _transactionRepository.AddTransaction(creditTransaction);
 
             debitTransaction.TransactionId = debitTransaction.Id;
             creditTransaction.TransactionId = debitTransaction.Id;
-            
-            await _accountRepository.ChangeBalance((int)transactionDto.SenderId, -1 * transactionDto.Amount);
-            await _accountRepository.ChangeBalance((int)transactionDto.RecipientId, transactionDto.Amount);
 
             return await _transactionRepository.SaveDBChanges();
         }
@@ -96,36 +90,34 @@ namespace ATMApplication.Api.Services
         {
             Transaction transaction = new Transaction
             (
-                null,
                 TransactionType.DEPOSIT,
-                TransactionStatus.FAILED,
                 (int)transactionDto.RecipientId,
-                transactionDto.Amount,
-                ""
+                transactionDto.Amount
             );
 
+            await _accountRepository.ChangeBalance((int)transactionDto.RecipientId, transactionDto.Amount);
+            
             await _transactionRepository.AddTransaction(transaction);
             transaction.TransactionId = transaction.Id;
 
-            return await _accountRepository.ChangeBalance((int)transactionDto.RecipientId, transactionDto.Amount);
+            return await _transactionRepository.SaveDBChanges();
         }
 
         public async Task<int> AddWithdrawal(TransactionDto transactionDto)
         {
             Transaction transaction = new Transaction
             (
-                null,
                 TransactionType.WITHDRAW,
-                TransactionStatus.FAILED,
                 (int)transactionDto.SenderId,
-                transactionDto.Amount,
-                ""
+                transactionDto.Amount
             );
+            
+            await _accountRepository.ChangeBalance((int)transactionDto.SenderId, -1 * transactionDto.Amount);
 
             await _transactionRepository.AddTransaction(transaction);
             transaction.TransactionId = transaction.Id;
 
-            return await _accountRepository.ChangeBalance((int)transactionDto.SenderId, -1 * transactionDto.Amount);
+            return await _transactionRepository.SaveDBChanges();
         }
 
         public async Task<List<Transaction>> GetTransactionsByAccount(int id)

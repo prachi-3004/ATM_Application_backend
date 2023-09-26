@@ -51,15 +51,7 @@ namespace ATMApplication.Api.Services
 
         public async Task<List<Customer>> GetAllCustomers()
 		{
-			List<Customer> customers = new List<Customer>();
-			foreach (Customer customer in await _customerRepository.GetAllCustomers())
-			{
-				if(customer.Status == CustomerStatus.Active)
-				{
-					customers.Add(customer);
-				}
-			}
-			return customers;
+			return await _customerRepository.GetAllCustomers();
 		}
 
 		public async Task<int> UpdateCustomer(int id, CustomerDto customerDto, TokenClaims tokenClaims)
@@ -90,12 +82,15 @@ namespace ATMApplication.Api.Services
 			var accounts = await _accountRepository.GetAccountsByCustomerID(customer.Id);
 			foreach (var account in accounts)
 			{
-				if (account.Balance == 0)
+				if (account.Balance != 0)
 				{
 					throw new Exception($"Account with Id: {account.Id} can't be disabled!");
 				}
-				await _accountRepository.DisableAccount(account.Id);
 			}
+			foreach (var account in accounts)
+			{
+                await _accountRepository.DisableAccount(account.Id);
+            }
 			return await _customerRepository.DeleteCustomer(customer.Id);
 		}
 

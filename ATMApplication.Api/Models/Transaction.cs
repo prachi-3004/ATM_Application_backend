@@ -17,8 +17,6 @@ namespace ATMApplication.Api.Models
 		[Required]
 		public TransactionType? Type { get; set; }
 
-		public TransactionStatus Status { get; set; } = TransactionStatus.SUCCESSFUL;
-		
 		public virtual Account? Account { get; set; }
 		[ForeignKey("AccountId")]
 		public int AccountId { get; set; }
@@ -34,17 +32,13 @@ namespace ATMApplication.Api.Models
 		
 		public Transaction
 		(
-			int? transactionId,
 			TransactionType? type,
-			TransactionStatus status,
 			int accountId,
 			int amount,
 			string description = ""
 		)
 		{
-			TransactionId = transactionId;
 			Type = type;
-			Status = status;
 			AccountId = accountId;
 			Amount = amount;
 			Description = description;
