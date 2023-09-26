@@ -96,14 +96,14 @@ namespace ATMApplication.Api.Controllers
         }
 
         [Authorize(Roles = "ADMIN,customer")]
-        [Route("UpdateDetails/{email}")]
+        [Route("UpdateDetails/{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpdateCustomer(string email, CustomerDto customerDto)
+        public async Task<IActionResult> UpdateCustomer(int id, CustomerDto customerDto)
         {
             try
             {
                 var tokenClaims = _authenticationService.GetTokenClaims();
-                var result = await _customerService.UpdateCustomer(email, customerDto, tokenClaims);
+                var result = await _customerService.UpdateCustomer(id, customerDto, tokenClaims);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -112,15 +112,10 @@ namespace ATMApplication.Api.Controllers
             }
         }
 
-       
-
-
         [Authorize(Roles = "ADMIN")]
         [Route("Delete")]
         [HttpPatch]
-
         public async Task<IActionResult> DeleteCustomer(DeleteCustomerDto customer)
-
         {
             
             try

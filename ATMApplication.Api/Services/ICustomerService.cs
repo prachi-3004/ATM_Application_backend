@@ -14,7 +14,7 @@ namespace ATMApplication.Api.Services
 		
 		public Task<List<Customer>> GetAllCustomers();
 
-		public Task<int> UpdateCustomer(string email, CustomerDto customerDto, TokenClaims tokenClaims);
+		public Task<int> UpdateCustomer(int id, CustomerDto customerDto, TokenClaims tokenClaims);
 
 		public Task<int> DeleteCustomer(string email);
 

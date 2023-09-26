@@ -62,11 +62,11 @@ namespace ATMApplication.Api.Services
 			return customers;
 		}
 
-		public async Task<int> UpdateCustomer(string email, CustomerDto customerDto, TokenClaims tokenClaims)
+		public async Task<int> UpdateCustomer(int id, CustomerDto customerDto, TokenClaims tokenClaims)
 		{
-			if(email == tokenClaims.Email)
+			if(id.ToString() == tokenClaims.UserId)
 			{
-				Customer customer = await _customerRepository.GetCustomerByEmail(email);
+				Customer customer = await _customerRepository.GetCustomerByID(id);
                 Customer updated_customer = _mapper.Map<Customer>(customerDto);
 				updated_customer.Id = customer.Id;
                 updated_customer.Password = _passwordHasher.HashPassword(updated_customer, updated_customer.Password);
@@ -74,7 +74,7 @@ namespace ATMApplication.Api.Services
 			}
 			else if (tokenClaims.Role == "ADMIN")
 			{
-                Customer customer = await _customerRepository.GetCustomerByEmail(email);
+                Customer customer = await _customerRepository.GetCustomerByID(id);
                 Customer updated_customer = _mapper.Map<Customer>(customerDto);
                 updated_customer.Id = customer.Id;
 				updated_customer.GovernmentId = customer.GovernmentId;
