@@ -112,7 +112,7 @@ namespace ATMApplication.Api.Migrations
                             Address = "address",
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7400),
+                            CreatedAt = new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7242),
                             Email = "branch1@gmail.com",
                             Name = "branch1"
                         });
@@ -248,8 +248,8 @@ namespace ATMApplication.Api.Migrations
                             BranchId = 1,
                             City = "city",
                             ContactNumber = "9999999999",
-                            CreatedAt = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7517),
-                            DateOfBirth = new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7516),
+                            CreatedAt = new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7552),
+                            DateOfBirth = new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7549),
                             Email = "emp1@gmail.com",
                             GovernmentId = "123",
                             Name = "emp1",

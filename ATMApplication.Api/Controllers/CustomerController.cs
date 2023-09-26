@@ -112,14 +112,18 @@ namespace ATMApplication.Api.Controllers
             }
         }
 
+       
+
+
         [Authorize(Roles = "ADMIN")]
-        [Route("Delete/{email}")]
-        [HttpPut]
-        public async Task<IActionResult> DeleteCustomer(string email)
+        [Route("Delete")]
+        [HttpPatch]
+        public async Task<IActionResult> DeleteCustomer(DeleteCustomerDto customer)
         {
+            
             try
             {
-                var result = await _customerService.DeleteCustomer(email);
+                var result = await _customerService.DeleteCustomer(customer.Email);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -129,7 +133,13 @@ namespace ATMApplication.Api.Controllers
         }
 
     }
-	
-	
-	
+
+
+
+
+
+
+
+
+
 }

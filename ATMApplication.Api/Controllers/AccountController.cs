@@ -106,14 +106,14 @@ namespace ATMApplication.Api.Controllers
             }
         }
 
-        [Route("DisableAccount/{id}")]
+        [Route("DisableAccount")]
         [Authorize(Roles = "ADMIN")]
-        [HttpPut]
-        public async Task<ActionResult<int>> DisableAccount(int id)
+        [HttpPatch]
+        public async Task<ActionResult<int>> DisableAccount(DeleteAccountDto account)
         {
             try
             {
-                var result = await _accountService.DisableAccount(id);
+                var result = await _accountService.DisableAccount(account.Id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -123,4 +123,8 @@ namespace ATMApplication.Api.Controllers
         }
 
     }
+
+
+
+
 }

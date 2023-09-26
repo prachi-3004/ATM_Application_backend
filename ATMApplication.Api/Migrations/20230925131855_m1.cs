@@ -140,12 +140,12 @@ namespace ATMApplication.Api.Migrations
             migrationBuilder.InsertData(
                 table: "Branches",
                 columns: new[] { "Id", "Address", "City", "ContactNumber", "CreatedAt", "DeletedAt", "Email", "Name" },
-                values: new object[] { 1, "address", "city", "9999999999", new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7400), null, "branch1@gmail.com", "branch1" });
+                values: new object[] { 1, "address", "city", "9999999999", new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7242), null, "branch1@gmail.com", "branch1" });
 
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "Address", "BranchId", "City", "ContactNumber", "CreatedAt", "DateOfBirth", "DeletedAt", "Email", "GovernmentId", "Name", "Password", "Role", "Status" },
-                values: new object[] { 1, "address", 1, "city", "9999999999", new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7517), new DateTime(2023, 9, 25, 9, 3, 41, 949, DateTimeKind.Utc).AddTicks(7516), null, "emp1@gmail.com", "123", "emp1", "emp1", "ADMIN", "Active" });
+                values: new object[] { 1, "address", 1, "city", "9999999999", new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7552), new DateTime(2023, 9, 25, 13, 18, 55, 438, DateTimeKind.Utc).AddTicks(7549), null, "emp1@gmail.com", "123", "emp1", "emp1", "ADMIN", "Active" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_CustomerId",
