@@ -20,11 +20,30 @@ namespace ATMApplication.Api.Services
 		{
 			_transactionRepository = transactionRepository;
 			_accountRepository = accountRepository;
+            _passwordHasher = new PasswordHasher<Account>();
 		}
 
         public async Task<int> ProcessTransaction(TransactionDto transactionDto)
         {
-            if (transactionDto.Type == "Transfer" && transactionDto.SenderId != null && transactionDto.RecipientId != null)
+            int? verify_id = null;
+            if(transactionDto.SenderId!=null)
+            {
+                verify_id = transactionDto.SenderId;
+            }
+            else if(transactionDto.RecipientId!=null)
+            {
+                verify_id = transactionDto.RecipientId;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid request!");
+            }
+            Account account = await _accountRepository.GetAccountByID((int)verify_id);
+            if(_passwordHasher.VerifyHashedPassword(account, account.Pin, transactionDto.Pin) == 0)
+            {
+                throw new Exception("Invalid PIN!");
+            }
+            if (transactionDto.Type == "Transfer" && transactionDto.SenderId != null && transactionDto.RecipientId != null && transactionDto.SenderId!=transactionDto.RecipientId)
             {
                 return await AddTransfer(transactionDto);
             }
@@ -36,10 +55,7 @@ namespace ATMApplication.Api.Services
             {
                 return await AddWithdrawal(transactionDto);
             }
-            else
-            {
-                throw new ArgumentException("Request can't be processed!");
-            }
+            throw new ArgumentException("Request can't be processed!");
         }
 
         public async Task<int> AddTransfer(TransactionDto transactionDto)

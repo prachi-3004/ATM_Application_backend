@@ -88,11 +88,11 @@ namespace ATMApplication.Api.Repositories
         }
 
 		public async Task<int> ChangeBalance(int id, int amount)
-        {
+		{
 			Account account = await GetAccountByID(id);
 			account.Balance += amount;
 			return await _context.SaveChangesAsync();
-        }
+		}
 
 		public async Task<int> SaveDBChanges()
 		{
