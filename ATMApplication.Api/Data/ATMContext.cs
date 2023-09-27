@@ -16,16 +16,22 @@ namespace ATMApplication.Api.Data
 		{
 			_configuration = configuration;
 		}
-		
-		public DbSet<Customer> Customers { get; set; }
+
+        public ATMContext(DbContextOptions<ATMContext> options)
+        : base(options)
+        {
+        }
+
+        public DbSet<Customer> Customers { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Branch> Branches { get; set; }
 		public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-			=> optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
-
+        {
+            if (!optionsBuilder.IsConfigured) { optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")); }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Ignore<Currency>();
